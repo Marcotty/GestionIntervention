@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:gestion_intervention/widgets/intervention.dart';
+
 class Rapport extends StatelessWidget {
   final Map<String, TextEditingController> clientFacturationControllers;
   final Map<String, TextEditingController> clientInstallationControllers;
@@ -25,6 +27,9 @@ class Rapport extends StatelessWidget {
   final Map<String, TextEditingController> centraleControllers;
   final Map<String, TextEditingController> extension12Controllers;
   final Map<String, TextEditingController> extension34Controllers;
+  final Map<String, TextEditingController> extension34TypeControllers;
+  final Map<String, TextEditingController> extension34QteInitialeControllers;
+  final Map<String, TextEditingController> extension34QteChangeeControllers;
 
   const Rapport({
     super.key,
@@ -51,6 +56,9 @@ class Rapport extends StatelessWidget {
     required this.centraleControllers,
     required this.extension12Controllers,
     required this.extension34Controllers,
+    required this.extension34TypeControllers,
+    required this.extension34QteInitialeControllers,
+    required this.extension34QteChangeeControllers,
   });
 
   Widget _buildReadOnlyField(String label, String value) {
@@ -228,6 +236,68 @@ class Rapport extends StatelessWidget {
               ],
             ),
           ),
+          if (entretienType == 'Entretien Intrusion') ...[
+            SizedBox(height: 18),
+            Text('Remplacement Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Container(
+              margin: const EdgeInsets.only(top: 8, bottom: 8),
+              child: Row(
+                children: [
+                  SizedBox(width: 200, child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold))),
+                  SizedBox(width: 120, child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold))),
+                  SizedBox(width: 120, child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold))),
+                ],
+              ),
+            ),
+            ...Intervention.extension34RemplacementLabels.map((label) => Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: Text(label, style: TextStyle(fontSize: 14)),
+                  ),
+                  SizedBox(width: 8),
+                  SizedBox(
+                    width: 120,
+                    child: TextField(
+                      controller: extension34TypeControllers[label],
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  SizedBox(
+                    width: 120,
+                    child: TextField(
+                      controller: extension34QteInitialeControllers[label],
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  SizedBox(
+                    width: 120,
+                    child: TextField(
+                      controller: extension34QteChangeeControllers[label],
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )),
+          ],
         ],
       ),
     );

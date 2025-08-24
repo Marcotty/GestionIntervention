@@ -133,6 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
     'Nécessité d\'adaptation du système': TextEditingController(),
   };
 
+  // Add in _MyHomePageState:
+  final Map<String, TextEditingController> extension34TypeControllers = {
+    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension34QteInitialeControllers = {
+    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension34QteChangeeControllers = {
+    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -224,6 +235,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 centraleControllers: centraleControllers,
                 extension12Controllers: extension12Controllers,
                 extension34Controllers: extension34Controllers,
+                extension34TypeControllers: extension34TypeControllers,
+                extension34QteInitialeControllers: extension34QteInitialeControllers,
+                extension34QteChangeeControllers: extension34QteChangeeControllers,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -250,6 +264,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 centraleControllers: centraleControllers,
                 extension12Controllers: extension12Controllers,
                 extension34Controllers: extension34Controllers,
+                extension34TypeControllers: extension34TypeControllers,
+                extension34QteInitialeControllers: extension34QteInitialeControllers,
+                extension34QteChangeeControllers: extension34QteChangeeControllers,
               ),
             ],
           ),

@@ -17,6 +17,9 @@ class Intervention extends StatelessWidget {
   final Map<String, TextEditingController> centraleControllers;
   final Map<String, TextEditingController> extension12Controllers;
   final Map<String, TextEditingController> extension34Controllers;
+  final Map<String, TextEditingController> extension34TypeControllers;
+  final Map<String, TextEditingController> extension34QteInitialeControllers;
+  final Map<String, TextEditingController> extension34QteChangeeControllers;
 
   const Intervention({
     super.key,
@@ -35,6 +38,9 @@ class Intervention extends StatelessWidget {
     required this.centraleControllers,
     required this.extension12Controllers,
     required this.extension34Controllers,
+    required this.extension34TypeControllers,
+    required this.extension34QteInitialeControllers,
+    required this.extension34QteChangeeControllers,
   });
 
   static final List<Map<String, String>> entretienIntrusionFields = [
@@ -76,6 +82,22 @@ class Intervention extends StatelessWidget {
     {'label': 'Tension zones (VDC)', 'hint': ''},
     {'label': 'Cons. Repos (mA)', 'hint': ''},
     {'label': 'Nécessité d\'adaptation du système', 'hint': ''},
+  ];
+
+  static final List<String> extension34RemplacementLabels = [
+    'Rempl. batterie centrale',
+    'Rempl. batterie ext 1',
+    'Rempl. batterie ext 2',
+    'Rempl. batterie ext 3',
+    'Rempl. batterie ext 4',
+    'Rempl. pile clavier',
+    'Rempl. pile contact mag.',
+    'Rempl. pile détecteur',
+    'Rempl. pile détecteur inc.',
+    'Rempl. pile sirène intérieure',
+    'Rempl. pile/batt. sirène ext.',
+    'Rempl. pile télécommande',
+    'Rempl. batterie transmetteur',
   ];
 
   @override
@@ -449,6 +471,63 @@ class Intervention extends StatelessWidget {
                               controller: extension34Controllers[field['label']!],
                               decoration: InputDecoration(
                                 hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 18),
+                    Text('Remplacement Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 8),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 200, child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(width: 120, child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(width: 120, child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold))),
+                        ],
+                      ),
+                    ),
+                    ...extension34RemplacementLabels.map((label) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text(label, style: TextStyle(fontSize: 14)),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34TypeControllers[label],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34QteInitialeControllers[label],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34QteChangeeControllers[label],
+                              decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                               ),
