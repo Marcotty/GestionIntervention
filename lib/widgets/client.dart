@@ -1,5 +1,128 @@
 import 'package:flutter/material.dart';
 
+class Client extends StatelessWidget {
+  final Map<String, TextEditingController> clientFacturationControllers;
+  final Map<String, TextEditingController> clientInstallationControllers;
+  final TextEditingController interventionNumController;
+  final TextEditingController interventionDateController;
+  final TextEditingController interventionHeureController;
+  final String technicien;
+  final ValueChanged<String?> onTechnicienChanged;
+  final List<String> selectedTags;
+  final ValueChanged<List<String>> onTagsChanged;
+  final TextEditingController motifController;
+  final TextEditingController noteController;
+  final TextEditingController materielController;
+
+  const Client({
+    super.key,
+    required this.clientFacturationControllers,
+    required this.clientInstallationControllers,
+    required this.interventionNumController,
+    required this.interventionDateController,
+    required this.interventionHeureController,
+    required this.technicien,
+    required this.onTechnicienChanged,
+    required this.selectedTags,
+    required this.onTagsChanged,
+    required this.motifController,
+    required this.noteController,
+    required this.materielController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 400,
+                child: ClientInfos(
+                  'Facturation',
+                  controllers: clientFacturationControllers,
+                ),
+              ),
+              SizedBox(width: 32),
+              SizedBox(
+                width: 400,
+                child: ClientInfos(
+                  'Installation',
+                  controllers: clientInstallationControllers,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 48),
+          InterventionInfos(
+            numController: interventionNumController,
+            dateController: interventionDateController,
+            heureController: interventionHeureController,
+            technicien: technicien,
+            onTechnicienChanged: onTechnicienChanged,
+            selectedTags: selectedTags,
+            onTagsChanged: onTagsChanged,
+            motifController: motifController,
+            noteController: noteController,
+            materielController: materielController,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ClientInfos extends StatelessWidget {
+  const ClientInfos(this.title, {super.key, required this.controllers});
+
+  final String title;
+  final Map<String, TextEditingController> controllers;
+  final List<Map<String, String>> fields = const [
+    {'label': 'Nom', 'hint': 'Entrez le nom'},
+    {'label': 'Prénom', 'hint': 'Entrez le prénom'},
+    {'label': 'Adresse', 'hint': 'Entrez l\'adresse'},
+    {'label': 'Tel', 'hint': 'Entrez le téléphone'},
+    {'label': 'GSM', 'hint': 'Entrez le GSM'},
+    {'label': 'Email', 'hint': 'Entrez l\'email'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(title, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(height: 32),
+            ...fields.map((field) => Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('${field['label']} :'),
+                  TextField(
+                    controller: controllers[field['label']!],
+                    decoration: InputDecoration(
+                      hintText: field['hint'],
+                    ),
+                  ),
+                ],
+              ),
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class InterventionInfos extends StatefulWidget {
   final TextEditingController numController;
   final TextEditingController dateController;

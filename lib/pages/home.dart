@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-import 'package:gestion_intervention/widgets/client_infos.dart';
-import 'package:gestion_intervention/widgets/intervention_infos.dart';
+import 'package:gestion_intervention/widgets/client.dart';
 import 'package:gestion_intervention/widgets/rapport.dart';
 import 'package:gestion_intervention/widgets/signature.dart';
-import 'package:gestion_intervention/widgets/travail_infos.dart';
+import 'package:gestion_intervention/widgets/intervention.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -66,6 +65,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Map<String, String>> materielLines = [];
+
+  void _addMaterielLine() {
+    setState(() {
+      materielLines.add({
+        'Référence': referenceController.text,
+        'Désignation': designationController.text,
+        'Qté': qteController.text,
+        'TVA': tvaController.text,
+      });
+      referenceController.clear();
+      designationController.clear();
+      qteController.clear();
+      tvaController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -92,32 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 400,
-                          child: ClientInfos(
-                            'Facturation',
-                            controllers: clientFacturationControllers,
-                          ),
-                        ),
-                        SizedBox(width: 32),
-                        SizedBox(
-                          width: 400,
-                          child: ClientInfos(
-                            'Installation',
-                            controllers: clientInstallationControllers,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 48),
-                    InterventionInfos(
-                      numController: interventionNumController,
-                      dateController: interventionDateController,
-                      heureController: interventionHeureController,
+                    SizedBox(height: 24),
+                    Client(
+                      clientFacturationControllers: clientFacturationControllers,
+                      clientInstallationControllers: clientInstallationControllers,
+                      interventionNumController: interventionNumController,
+                      interventionDateController: interventionDateController,
+                      interventionHeureController: interventionHeureController,
                       technicien: technicien,
                       onTechnicienChanged: (val) =>
                           setState(() => technicien = val!),
@@ -131,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              TravailInfos(
+              Intervention(
                 panneController: panneController,
                 travailController: travailController,
                 referenceController: referenceController,
@@ -168,6 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+                materielLines: materielLines,
+                onAddMaterielLine: _addMaterielLine,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -188,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 qteController: qteController,
                 tvaController: tvaController,
                 signatureImage: _signatureImage,
+                materielLines: materielLines,
               ),
             ],
           ),

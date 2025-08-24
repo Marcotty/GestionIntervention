@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 
 class SignatureWidget extends StatefulWidget {
   final Function(ui.Image)? onSignatureValidated;
-  const SignatureWidget({Key? key, this.onSignatureValidated}) : super(key: key);
+  const SignatureWidget({super.key, this.onSignatureValidated});
 
   @override
   State<SignatureWidget> createState() => _SignatureWidgetState();

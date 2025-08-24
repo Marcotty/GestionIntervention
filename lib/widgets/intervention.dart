@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class TravailInfos extends StatelessWidget {
+class Intervention extends StatelessWidget {
   final TextEditingController panneController;
   final TextEditingController travailController;
   final TextEditingController referenceController;
@@ -9,7 +9,10 @@ class TravailInfos extends StatelessWidget {
   final TextEditingController qteController;
   final TextEditingController tvaController;
   final Widget? topWidget;
-  const TravailInfos({
+  final List<Map<String, String>> materielLines;
+  final VoidCallback onAddMaterielLine;
+
+  const Intervention({
     super.key,
     required this.panneController,
     required this.travailController,
@@ -18,6 +21,8 @@ class TravailInfos extends StatelessWidget {
     required this.qteController,
     required this.tvaController,
     this.topWidget,
+    required this.materielLines,
+    required this.onAddMaterielLine,
   });
 
   @override
@@ -108,6 +113,17 @@ class TravailInfos extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Matériel', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ...materielLines.map((line) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Expanded(flex: 3, child: Text(line['Référence'] ?? '')),
+                        Expanded(flex: 5, child: Text(line['Désignation'] ?? '')),
+                        Expanded(flex: 1, child: Text(line['Qté'] ?? '')),
+                        Expanded(flex: 1, child: Text(line['TVA'] ?? '')),
+                      ],
+                    ),
+                  )),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -183,6 +199,15 @@ class TravailInfos extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.add),
+                      label: Text('Ajouter'),
+                      onPressed: onAddMaterielLine,
+                    ),
                   ),
                 ],
               ),

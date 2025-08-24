@@ -19,9 +19,10 @@ class Rapport extends StatelessWidget {
   final TextEditingController qteController;
   final TextEditingController tvaController;
   final ui.Image? signatureImage;
+  final List<Map<String, String>> materielLines;
 
   const Rapport({
-    Key? key,
+    super.key,
     required this.clientFacturationControllers,
     required this.clientInstallationControllers,
     required this.interventionNumController,
@@ -39,7 +40,8 @@ class Rapport extends StatelessWidget {
     required this.qteController,
     required this.tvaController,
     this.signatureImage,
-  }) : super(key: key);
+    required this.materielLines,
+  });
 
   Widget _buildReadOnlyField(String label, String value) {
     return Padding(
@@ -146,14 +148,14 @@ class Rapport extends StatelessWidget {
                         Text('Travail Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                         _buildReadOnlyField('Panne', panneController.text),
                         _buildReadOnlyField('Travail Réalisé', travailController.text),
-                        Row(
+                        ...materielLines.map((line) => Row(
                           children: [
-                            Expanded(child: _buildReadOnlyField('Référence', referenceController.text)),
-                            Expanded(child: _buildReadOnlyField('Désignation', designationController.text)),
-                            Expanded(child: _buildReadOnlyField('Qté', qteController.text)),
-                            Expanded(child: _buildReadOnlyField('TVA', tvaController.text)),
+                            Expanded(child: _buildReadOnlyField('Référence', line['Référence'] ?? '')),
+                            Expanded(child: _buildReadOnlyField('Désignation', line['Désignation'] ?? '')),
+                            Expanded(child: _buildReadOnlyField('Qté', line['Qté'] ?? '')),
+                            Expanded(child: _buildReadOnlyField('TVA', line['TVA'] ?? '')),
                           ],
-                        ),
+                        )),
                       ],
                     ),
                   ),
