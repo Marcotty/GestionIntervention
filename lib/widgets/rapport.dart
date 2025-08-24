@@ -23,6 +23,8 @@ class Rapport extends StatelessWidget {
   final String entretienType;
   final Map<String, TextEditingController> entretienIntrusionControllers;
   final Map<String, TextEditingController> centraleControllers;
+  final Map<String, TextEditingController> extension12Controllers;
+  final Map<String, TextEditingController> extension34Controllers;
 
   const Rapport({
     super.key,
@@ -47,6 +49,8 @@ class Rapport extends StatelessWidget {
     required this.entretienType,
     required this.entretienIntrusionControllers,
     required this.centraleControllers,
+    required this.extension12Controllers,
+    required this.extension34Controllers,
   });
 
   Widget _buildReadOnlyField(String label, String value) {
@@ -65,158 +69,166 @@ class Rapport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(24.0),
-                    margin: const EdgeInsets.only(right: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Facturation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        ...clientFacturationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
-                      ],
-                    ),
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(24.0),
+                  margin: const EdgeInsets.only(right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Facturation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      ...clientFacturationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Installation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        ...clientInstallationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
-                      ],
-                    ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Installation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      ...clientInstallationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(24.0),
-                    margin: const EdgeInsets.only(right: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Intervention Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        _buildReadOnlyField('N*', interventionNumController.text),
-                        _buildReadOnlyField('Date', interventionDateController.text),
-                        _buildReadOnlyField('Heure', interventionHeureController.text),
-                        _buildReadOnlyField('Technicien', technicien),
-                        _buildReadOnlyField("Objet de l'intervention", selectedTags.join(', ')),
-                        _buildReadOnlyField('Motif', motifController.text),
-                        _buildReadOnlyField('Note', noteController.text),
-                        _buildReadOnlyField('Matériel', materielController.text),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Type d'entretien : ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(entretienType),
-                            ],
-                          ),
-                        ),
-                        if (entretienType == 'Entretien Intrusion') ...[
-                          ...entretienIntrusionControllers.entries.map((entry) =>
-                            _buildReadOnlyField(entry.key, entry.value.text)
-                          ),
-                          SizedBox(height: 18),
-                          Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                          ...centraleControllers.entries.map((entry) =>
-                            _buildReadOnlyField(entry.key, entry.value.text)
-                          ),
-                        ],
-                      ],
-                    ),
+              ),
+            ],
+          ),
+          SizedBox(height: 24),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Travail Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        _buildReadOnlyField('Panne', panneController.text),
-                        _buildReadOnlyField('Travail Réalisé', travailController.text),
-                        ...materielLines.map((line) => Row(
+                  padding: const EdgeInsets.all(24.0),
+                  margin: const EdgeInsets.only(right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Intervention Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      _buildReadOnlyField('N*', interventionNumController.text),
+                      _buildReadOnlyField('Date', interventionDateController.text),
+                      _buildReadOnlyField('Heure', interventionHeureController.text),
+                      _buildReadOnlyField('Technicien', technicien),
+                      _buildReadOnlyField("Objet de l'intervention", selectedTags.join(', ')),
+                      _buildReadOnlyField('Motif', motifController.text),
+                      _buildReadOnlyField('Note', noteController.text),
+                      _buildReadOnlyField('Matériel', materielController.text),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
                           children: [
-                            Expanded(child: _buildReadOnlyField('Référence', line['Référence'] ?? '')),
-                            Expanded(child: _buildReadOnlyField('Désignation', line['Désignation'] ?? '')),
-                            Expanded(child: _buildReadOnlyField('Qté', line['Qté'] ?? '')),
-                            Expanded(child: _buildReadOnlyField('TVA', line['TVA'] ?? '')),
+                            Text(
+                              "Type d'entretien : ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(entretienType),
                           ],
-                        )),
+                        ),
+                      ),
+                      if (entretienType == 'Entretien Intrusion') ...[
+                        ...entretienIntrusionControllers.entries.map((entry) =>
+                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ),
+                        SizedBox(height: 18),
+                        Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        ...centraleControllers.entries.map((entry) =>
+                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ),
+                        SizedBox(height: 18),
+                        Text('Extension 1-2', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        ...extension12Controllers.entries.map((entry) =>
+                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ),
+                        SizedBox(height: 18),
+                        Text('Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        ...extension34Controllers.entries.map((entry) =>
+                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ),
                       ],
-                    ),
+                    ],
                   ),
                 ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Travail Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      _buildReadOnlyField('Panne', panneController.text),
+                      _buildReadOnlyField('Travail Réalisé', travailController.text),
+                      ...materielLines.map((line) => Row(
+                        children: [
+                          Expanded(child: _buildReadOnlyField('Référence', line['Référence'] ?? '')),
+                          Expanded(child: _buildReadOnlyField('Désignation', line['Désignation'] ?? '')),
+                          Expanded(child: _buildReadOnlyField('Qté', line['Qté'] ?? '')),
+                          Expanded(child: _buildReadOnlyField('TVA', line['TVA'] ?? '')),
+                        ],
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 24),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Signature', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                SizedBox(height: 16),
+                if (signatureImage != null)
+                  Center(
+                    child: SizedBox(
+                      height: 150,
+                      child: RawImage(image: signatureImage),
+                    ),
+                  )
+                else
+                  Center(child: Text('Aucune signature enregistrée')), // No signature
               ],
             ),
-            SizedBox(height: 24),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 2),
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-              ),
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Signature', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 16),
-                  if (signatureImage != null)
-                    Center(
-                      child: SizedBox(
-                        height: 150,
-                        child: RawImage(image: signatureImage),
-                      ),
-                    )
-                  else
-                    Center(child: Text('Aucune signature enregistrée')), // No signature
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

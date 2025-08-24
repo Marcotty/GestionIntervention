@@ -15,6 +15,8 @@ class Intervention extends StatelessWidget {
   final ValueChanged<String> onEntretienTypeChanged;
   final Map<String, TextEditingController> entretienIntrusionControllers;
   final Map<String, TextEditingController> centraleControllers;
+  final Map<String, TextEditingController> extension12Controllers;
+  final Map<String, TextEditingController> extension34Controllers;
 
   const Intervention({
     super.key,
@@ -31,6 +33,8 @@ class Intervention extends StatelessWidget {
     required this.onEntretienTypeChanged,
     required this.entretienIntrusionControllers,
     required this.centraleControllers,
+    required this.extension12Controllers,
+    required this.extension34Controllers,
   });
 
   static final List<Map<String, String>> entretienIntrusionFields = [
@@ -54,6 +58,24 @@ class Intervention extends StatelessWidget {
     {'label': 'Tension de chargement (VDC)', 'hint': ''},
     {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
     {'label': 'Tension zones (VDC)', 'hint': ''},
+    {'label': 'Cons. de chargement (mA)', 'hint': ''},
+    {'label': 'Cons. Sans alimentation (mA)', 'hint': ''},
+  ];
+
+  static final List<Map<String, String>> extension12Fields = [
+    {'label': 'Tension de charge (VDC)', 'hint': ''},
+    {'label': 'Cons. Charge (mA)', 'hint': ''},
+    {'label': 'Tension batterie (VDC)', 'hint': ''},
+    {'label': 'Tension zones (VDC)', 'hint': ''},
+    {'label': 'Cons. Repos (mA)', 'hint': ''},
+  ];
+
+  static final List<Map<String, String>> extension34Fields = [
+    {'label': 'Tension de charge (VDC)', 'hint': ''},
+    {'label': 'Tension batterie (VDC)', 'hint': ''},
+    {'label': 'Tension zones (VDC)', 'hint': ''},
+    {'label': 'Cons. Repos (mA)', 'hint': ''},
+    {'label': 'Nécessité d\'adaptation du système', 'hint': ''},
   ];
 
   @override
@@ -322,18 +344,18 @@ class Intervention extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
+                          Container(
                             width: 200,
+                            alignment: Alignment.centerLeft,
                             child: Text(
                               field['label']!,
                               style: TextStyle(fontSize: 14),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                             ),
                           ),
-                          SizedBox(
-                            width: 100,
+                          SizedBox(width: 16),
+                          Expanded(
                             child: TextField(
+                              textAlign: TextAlign.right,
                               controller: entretienIntrusionControllers[field['label']!],
                               decoration: InputDecoration(
                                 hintText: field['hint'],
@@ -352,19 +374,79 @@ class Intervention extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
+                          Container(
                             width: 200,
+                            alignment: Alignment.centerLeft,
                             child: Text(
                               field['label']!,
                               style: TextStyle(fontSize: 14),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                             ),
                           ),
-                          SizedBox(
-                            width: 100,
+                          SizedBox(width: 16),
+                          Expanded(
                             child: TextField(
+                              textAlign: TextAlign.right,
                               controller: centraleControllers[field['label']!],
+                              decoration: InputDecoration(
+                                hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 18),
+                    Text('Extension 1-2', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    ...extension12Fields.map((field) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 200,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              field['label']!,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: TextField(
+                              textAlign: TextAlign.right,
+                              controller: extension12Controllers[field['label']!],
+                              decoration: InputDecoration(
+                                hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 18),
+                    Text('Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    ...extension34Fields.map((field) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 200,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              field['label']!,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: TextField(
+                              textAlign: TextAlign.right,
+                              controller: extension34Controllers[field['label']!],
                               decoration: InputDecoration(
                                 hintText: field['hint'],
                                 border: OutlineInputBorder(),

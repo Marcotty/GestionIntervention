@@ -113,6 +113,24 @@ class _MyHomePageState extends State<MyHomePage> {
     'Tension de chargement (VDC)': TextEditingController(),
     'Tension batterie sous charge (VDC)': TextEditingController(),
     'Tension zones (VDC)': TextEditingController(),
+    'Cons. de chargement (mA)': TextEditingController(),
+    'Cons. Sans alimentation (mA)': TextEditingController(),
+  };
+
+  // Add controllers for Extension 1-2 and Extension 3-4 in _MyHomePageState:
+  final Map<String, TextEditingController> extension12Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Cons. Charge (mA)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension34Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+    'Nécessité d\'adaptation du système': TextEditingController(),
   };
 
   @override
@@ -204,6 +222,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onEntretienTypeChanged: _onEntretienTypeChanged,
                 entretienIntrusionControllers: entretienIntrusionControllers,
                 centraleControllers: centraleControllers,
+                extension12Controllers: extension12Controllers,
+                extension34Controllers: extension34Controllers,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -228,6 +248,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 entretienType: entretienType,
                 entretienIntrusionControllers: entretienIntrusionControllers,
                 centraleControllers: centraleControllers,
+                extension12Controllers: extension12Controllers,
+                extension34Controllers: extension34Controllers,
               ),
             ],
           ),
