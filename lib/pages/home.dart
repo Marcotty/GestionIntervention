@@ -271,6 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension34Value1Controllers: extension34Value1Controllers,
                 extension34Value2Controllers: extension34Value2Controllers,
                 extension34NecessiteController: extension34NecessiteController,
+                technicien: technicien,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(

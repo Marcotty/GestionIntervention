@@ -25,6 +25,7 @@ class Intervention extends StatelessWidget {
   final Map<String, TextEditingController> extension34Value1Controllers;
   final Map<String, TextEditingController> extension34Value2Controllers;
   final TextEditingController extension34NecessiteController;
+  final String technicien;
 
   const Intervention({
     super.key,
@@ -51,6 +52,7 @@ class Intervention extends StatelessWidget {
     required this.extension34Value1Controllers,
     required this.extension34Value2Controllers,
     required this.extension34NecessiteController,
+    required this.technicien,
   });
 
   static final List<Map<String, String>> entretienIntrusionFields = [
@@ -333,41 +335,58 @@ class Intervention extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: () async {
-                      final selected = await showDialog<String>(
-                        context: context,
-                        builder: (context) => SimpleDialog(
-                          title: Text('Choisir le type d\'entretien'),
-                          children: [
-                            SimpleDialogOption(
-                              child: Text('Entretien Intrusion'),
-                              onPressed: () =>
-                                  Navigator.pop(context, 'Entretien Intrusion'),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          final selected = await showDialog<String>(
+                            context: context,
+                            builder: (context) => SimpleDialog(
+                              title: Text('Choisir le type d\'entretien'),
+                              children: [
+                                SimpleDialogOption(
+                                  child: Text('Entretien Intrusion'),
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Entretien Intrusion'),
+                                ),
+                                SimpleDialogOption(
+                                  child: Text('Entretien Incendie'),
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Entretien Incendie'),
+                                ),
+                              ],
                             ),
-                            SimpleDialogOption(
-                              child: Text('Entretien Incendie'),
-                              onPressed: () =>
-                                  Navigator.pop(context, 'Entretien Incendie'),
-                            ),
-                          ],
+                          );
+                          if (selected != null) {
+                            onEntretienTypeChanged(selected);
+                          }
+                        },
+                        child: Text(
+                          entretienType.isEmpty
+                              ? 'Choisir le type d\'entretien'
+                              : entretienType,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
-                      );
-                      if (selected != null) {
-                        onEntretienTypeChanged(selected);
-                      }
-                    },
-                    child: Text(
-                      entretienType.isEmpty
-                          ? 'Choisir le type d\'entretien'
-                          : entretienType,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
                       ),
-                    ),
+                      SizedBox(width: 32),
+                      Text(
+                        'Date: ${DateTime.now().day.toString().padLeft(2, '0')}/'
+                        '${DateTime.now().month.toString().padLeft(2, '0')}/'
+                        '${DateTime.now().year}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(width: 32),
+                      Text(
+                        'Technicien: $technicien',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 16),
                   if (entretienType == 'Entretien Intrusion') ...[
