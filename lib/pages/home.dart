@@ -82,6 +82,39 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Add entretienType state to _MyHomePageState:
+  String entretienType = '';
+
+  // Add handler:
+  void _onEntretienTypeChanged(String value) {
+    setState(() {
+      entretienType = value;
+    });
+  }
+
+  // Add controllers for entretien fields in _MyHomePageState:
+  final Map<String, TextEditingController> entretienIntrusionControllers = {
+    'Disjoncteur séparé': TextEditingController(),
+    'Test d\'armement': TextEditingController(),
+    'Vérification et mise à l\'heure centrale': TextEditingController(),
+    'Vérification et essai claviers': TextEditingController(),
+    'Vérification et essai détecteurs': TextEditingController(),
+    'Vérification et essai détecteurs incendie': TextEditingController(),
+    'Vérification et essai sirène intérieure': TextEditingController(),
+    'Vérification et essai sirène et flash ext.': TextEditingController(),
+    'Vérification et essai bouton panique': TextEditingController(),
+    'Vérification et essai  de transmission': TextEditingController(),
+    'Vérification et essai processus d\'alarme': TextEditingController(),
+    'Vérification événements': TextEditingController(),
+    'Carnet entretien': TextEditingController(),
+    'Contrôle de présence de tension': TextEditingController(),
+  };
+  final Map<String, TextEditingController> centraleControllers = {
+    'Tension de chargement (VDC)': TextEditingController(),
+    'Tension batterie sous charge (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -167,6 +200,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 materielLines: materielLines,
                 onAddMaterielLine: _addMaterielLine,
+                entretienType: entretienType,
+                onEntretienTypeChanged: _onEntretienTypeChanged,
+                entretienIntrusionControllers: entretienIntrusionControllers,
+                centraleControllers: centraleControllers,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -188,6 +225,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 tvaController: tvaController,
                 signatureImage: _signatureImage,
                 materielLines: materielLines,
+                entretienType: entretienType,
+                entretienIntrusionControllers: entretienIntrusionControllers,
+                centraleControllers: centraleControllers,
               ),
             ],
           ),

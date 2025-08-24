@@ -20,6 +20,9 @@ class Rapport extends StatelessWidget {
   final TextEditingController tvaController;
   final ui.Image? signatureImage;
   final List<Map<String, String>> materielLines;
+  final String entretienType;
+  final Map<String, TextEditingController> entretienIntrusionControllers;
+  final Map<String, TextEditingController> centraleControllers;
 
   const Rapport({
     super.key,
@@ -41,6 +44,9 @@ class Rapport extends StatelessWidget {
     required this.tvaController,
     this.signatureImage,
     required this.materielLines,
+    required this.entretienType,
+    required this.entretienIntrusionControllers,
+    required this.centraleControllers,
   });
 
   Widget _buildReadOnlyField(String label, String value) {
@@ -130,6 +136,28 @@ class Rapport extends StatelessWidget {
                         _buildReadOnlyField('Motif', motifController.text),
                         _buildReadOnlyField('Note', noteController.text),
                         _buildReadOnlyField('Matériel', materielController.text),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Type d'entretien : ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(entretienType),
+                            ],
+                          ),
+                        ),
+                        if (entretienType == 'Entretien Intrusion') ...[
+                          ...entretienIntrusionControllers.entries.map((entry) =>
+                            _buildReadOnlyField(entry.key, entry.value.text)
+                          ),
+                          SizedBox(height: 18),
+                          Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ...centraleControllers.entries.map((entry) =>
+                            _buildReadOnlyField(entry.key, entry.value.text)
+                          ),
+                        ],
                       ],
                     ),
                   ),

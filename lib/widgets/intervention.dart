@@ -11,6 +11,10 @@ class Intervention extends StatelessWidget {
   final Widget? topWidget;
   final List<Map<String, String>> materielLines;
   final VoidCallback onAddMaterielLine;
+  final String entretienType;
+  final ValueChanged<String> onEntretienTypeChanged;
+  final Map<String, TextEditingController> entretienIntrusionControllers;
+  final Map<String, TextEditingController> centraleControllers;
 
   const Intervention({
     super.key,
@@ -23,7 +27,34 @@ class Intervention extends StatelessWidget {
     this.topWidget,
     required this.materielLines,
     required this.onAddMaterielLine,
+    required this.entretienType,
+    required this.onEntretienTypeChanged,
+    required this.entretienIntrusionControllers,
+    required this.centraleControllers,
   });
+
+  static final List<Map<String, String>> entretienIntrusionFields = [
+    {'label': 'Disjoncteur séparé', 'hint': ''},
+    {'label': 'Test d\'armement', 'hint': ''},
+    {'label': 'Vérification et mise à l\'heure centrale', 'hint': ''},
+    {'label': 'Vérification et essai claviers', 'hint': ''},
+    {'label': 'Vérification et essai détecteurs', 'hint': ''},
+    {'label': 'Vérification et essai détecteurs incendie', 'hint': ''},
+    {'label': 'Vérification et essai sirène intérieure', 'hint': ''},
+    {'label': 'Vérification et essai sirène et flash ext.', 'hint': ''},
+    {'label': 'Vérification et essai bouton panique', 'hint': ''},
+    {'label': 'Vérification et essai  de transmission', 'hint': ''},
+    {'label': 'Vérification et essai processus d\'alarme', 'hint': ''},
+    {'label': 'Vérification événements', 'hint': ''},
+    {'label': 'Carnet entretien', 'hint': ''},
+    {'label': 'Contrôle de présence de tension', 'hint': ''},
+  ];
+
+  static final List<Map<String, String>> centraleFields = [
+    {'label': 'Tension de chargement (VDC)', 'hint': ''},
+    {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
+    {'label': 'Tension zones (VDC)', 'hint': ''},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +91,13 @@ class Intervention extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Panne', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text(
+                          'Panne',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         SizedBox(height: 16),
                         TextField(
                           controller: panneController,
@@ -85,7 +122,13 @@ class Intervention extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Travail Réalisé', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text(
+                          'Travail Réalisé',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         SizedBox(height: 16),
                         TextField(
                           controller: travailController,
@@ -112,18 +155,29 @@ class Intervention extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Matériel', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  ...materielLines.map((line) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      children: [
-                        Expanded(flex: 3, child: Text(line['Référence'] ?? '')),
-                        Expanded(flex: 5, child: Text(line['Désignation'] ?? '')),
-                        Expanded(flex: 1, child: Text(line['Qté'] ?? '')),
-                        Expanded(flex: 1, child: Text(line['TVA'] ?? '')),
-                      ],
+                  Text(
+                    'Matériel',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  ...materielLines.map(
+                    (line) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Text(line['Référence'] ?? ''),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Text(line['Désignation'] ?? ''),
+                          ),
+                          Expanded(flex: 1, child: Text(line['Qté'] ?? '')),
+                          Expanded(flex: 1, child: Text(line['TVA'] ?? '')),
+                        ],
+                      ),
                     ),
-                  )),
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -209,6 +263,120 @@ class Intervention extends StatelessWidget {
                       onPressed: onAddMaterielLine,
                     ),
                   ),
+                ],
+              ),
+            ),
+            SizedBox(height: 32),
+            // NEW BLOCK AT THE BOTTOM
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: 2),
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      final selected = await showDialog<String>(
+                        context: context,
+                        builder: (context) => SimpleDialog(
+                          title: Text('Choisir le type d\'entretien'),
+                          children: [
+                            SimpleDialogOption(
+                              child: Text('Entretien Intrusion'),
+                              onPressed: () =>
+                                  Navigator.pop(context, 'Entretien Intrusion'),
+                            ),
+                            SimpleDialogOption(
+                              child: Text('Entretien Incendie'),
+                              onPressed: () =>
+                                  Navigator.pop(context, 'Entretien Incendie'),
+                            ),
+                          ],
+                        ),
+                      );
+                      if (selected != null) {
+                        onEntretienTypeChanged(selected);
+                      }
+                    },
+                    child: Text(
+                      entretienType.isEmpty
+                          ? 'Choisir le type d\'entretien'
+                          : entretienType,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  if (entretienType == 'Entretien Intrusion') ...[
+                    ...entretienIntrusionFields.map((field) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text(
+                              field['label']!,
+                              style: TextStyle(fontSize: 14),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: TextField(
+                              controller: entretienIntrusionControllers[field['label']!],
+                              decoration: InputDecoration(
+                                hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 18),
+                    Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    ...centraleFields.map((field) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text(
+                              field['label']!,
+                              style: TextStyle(fontSize: 14),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: TextField(
+                              controller: centraleControllers[field['label']!],
+                              decoration: InputDecoration(
+                                hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                  ],
+                  // Add similar logic for 'Entretien Incendie' if needed
                 ],
               ),
             ),
