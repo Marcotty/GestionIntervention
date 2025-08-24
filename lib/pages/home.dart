@@ -144,6 +144,34 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
   };
 
+  final Map<String, TextEditingController> extension12Value1Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Cons. Charge (mA)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension12Value2Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Cons. Charge (mA)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension34Value1Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+  };
+  final Map<String, TextEditingController> extension34Value2Controllers = {
+    'Tension de charge (VDC)': TextEditingController(),
+    'Tension batterie (VDC)': TextEditingController(),
+    'Tension zones (VDC)': TextEditingController(),
+    'Cons. Repos (mA)': TextEditingController(),
+  };
+  final TextEditingController extension34NecessiteController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -238,6 +266,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension34TypeControllers: extension34TypeControllers,
                 extension34QteInitialeControllers: extension34QteInitialeControllers,
                 extension34QteChangeeControllers: extension34QteChangeeControllers,
+                extension12Value1Controllers: extension12Value1Controllers,
+                extension12Value2Controllers: extension12Value2Controllers,
+                extension34Value1Controllers: extension34Value1Controllers,
+                extension34Value2Controllers: extension34Value2Controllers,
+                extension34NecessiteController: extension34NecessiteController,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -267,6 +300,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension34TypeControllers: extension34TypeControllers,
                 extension34QteInitialeControllers: extension34QteInitialeControllers,
                 extension34QteChangeeControllers: extension34QteChangeeControllers,
+                extension12Value1Controllers: extension12Value1Controllers,
+                extension12Value2Controllers: extension12Value2Controllers,
+                extension34Value1Controllers: extension34Value1Controllers,
+                extension34Value2Controllers: extension34Value2Controllers,
+                extension34NecessiteController: extension34NecessiteController,
               ),
             ],
           ),
