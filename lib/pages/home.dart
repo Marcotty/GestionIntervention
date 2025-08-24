@@ -1,0 +1,198 @@
+import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+import 'package:gestion_intervention/widgets/client_infos.dart';
+import 'package:gestion_intervention/widgets/intervention_infos.dart';
+import 'package:gestion_intervention/widgets/rapport.dart';
+import 'package:gestion_intervention/widgets/signature.dart';
+import 'package:gestion_intervention/widgets/travail_infos.dart';
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  // Client Infos controllers
+  final Map<String, TextEditingController> clientFacturationControllers = {
+    'Nom': TextEditingController(),
+    'Prénom': TextEditingController(),
+    'Adresse': TextEditingController(),
+    'Tel': TextEditingController(),
+    'GSM': TextEditingController(),
+    'Email': TextEditingController(),
+  };
+  final Map<String, TextEditingController> clientInstallationControllers = {
+    'Nom': TextEditingController(),
+    'Prénom': TextEditingController(),
+    'Adresse': TextEditingController(),
+    'Tel': TextEditingController(),
+    'GSM': TextEditingController(),
+    'Email': TextEditingController(),
+  };
+
+  // Intervention Infos controllers/state
+  final TextEditingController interventionNumController =
+      TextEditingController();
+  final TextEditingController interventionDateController =
+      TextEditingController();
+  final TextEditingController interventionHeureController =
+      TextEditingController();
+  String technicien = 'Jean Dupont';
+  List<String> selectedTags = [];
+
+  // Motif, Note, Materiel
+  final TextEditingController motifController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
+  final TextEditingController materielController = TextEditingController();
+
+  // Travail Infos controllers
+  final TextEditingController panneController = TextEditingController();
+  final TextEditingController travailController = TextEditingController();
+  final TextEditingController referenceController = TextEditingController();
+  final TextEditingController designationController = TextEditingController();
+  final TextEditingController qteController = TextEditingController();
+  final TextEditingController tvaController = TextEditingController();
+
+  // Signature image state
+  ui.Image? _signatureImage;
+
+  void _onSignatureValidated(ui.Image image) {
+    setState(() {
+      _signatureImage = image;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.grey[500],
+            title: Text(widget.title),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'Client'),
+                Tab(text: 'Intervention'),
+                Tab(text: 'Signature'),
+                Tab(text: 'Rapport'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 400,
+                          child: ClientInfos(
+                            'Facturation',
+                            controllers: clientFacturationControllers,
+                          ),
+                        ),
+                        SizedBox(width: 32),
+                        SizedBox(
+                          width: 400,
+                          child: ClientInfos(
+                            'Installation',
+                            controllers: clientInstallationControllers,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 48),
+                    InterventionInfos(
+                      numController: interventionNumController,
+                      dateController: interventionDateController,
+                      heureController: interventionHeureController,
+                      technicien: technicien,
+                      onTechnicienChanged: (val) =>
+                          setState(() => technicien = val!),
+                      selectedTags: selectedTags,
+                      onTagsChanged: (tags) =>
+                          setState(() => selectedTags = tags),
+                      motifController: motifController,
+                      noteController: noteController,
+                      materielController: materielController,
+                    ),
+                  ],
+                ),
+              ),
+              TravailInfos(
+                panneController: panneController,
+                travailController: travailController,
+                referenceController: referenceController,
+                designationController: designationController,
+                qteController: qteController,
+                tvaController: tvaController,
+                topWidget: Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 24,
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Client Infos',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      ...clientInstallationControllers.entries.map(
+                        (entry) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Text('${entry.key}: ${entry.value.text}'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SignatureWidget(onSignatureValidated: _onSignatureValidated),
+              Rapport(
+                clientFacturationControllers: clientFacturationControllers,
+                clientInstallationControllers: clientInstallationControllers,
+                interventionNumController: interventionNumController,
+                interventionDateController: interventionDateController,
+                interventionHeureController: interventionHeureController,
+                technicien: technicien,
+                selectedTags: selectedTags,
+                motifController: motifController,
+                noteController: noteController,
+                materielController: materielController,
+                panneController: panneController,
+                travailController: travailController,
+                referenceController: referenceController,
+                designationController: designationController,
+                qteController: qteController,
+                tvaController: tvaController,
+                signatureImage: _signatureImage,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
