@@ -67,12 +67,33 @@ class _ClientState extends State<Client> {
                       : null,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 48.0),
-                child: TextButton.icon(
-                  icon: Icon(linkEnabled ? Icons.link : Icons.link_off),
-                  label: Text(linkEnabled ? 'Liaison activée' : 'Activer la liaison'),
-                  onPressed: _toggleLink,
+              SizedBox(width: 32),
+              // Centered link button with fixed width to avoid shifting
+              SizedBox(
+                width: 80,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(8),
+                        elevation: 4,
+                        backgroundColor: linkEnabled ? Colors.blue[50] : Colors.grey[200],
+                      ),
+                      onPressed: _toggleLink,
+                      child: StaticLinkIcon(linked: linkEnabled),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      linkEnabled ? 'Liaison activée' : 'Activer la liaison',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: linkEnabled ? Colors.blue : Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(width: 32),
@@ -509,6 +530,20 @@ class _InterventionInfosState extends State<InterventionInfos> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class StaticLinkIcon extends StatelessWidget {
+  final bool linked;
+  const StaticLinkIcon({super.key, required this.linked});
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      linked ? Icons.link : Icons.link_off,
+      size: 32,
+      color: linked ? Colors.blue : Colors.grey,
     );
   }
 }
