@@ -349,7 +349,12 @@ class Intervention extends StatelessWidget {
                     child: ElevatedButton.icon(
                       icon: Icon(Icons.add),
                       label: Text('Ajouter'),
-                      onPressed: onAddMaterielLine,
+                      onPressed: (referenceController.text.trim().isNotEmpty ||
+                              designationController.text.trim().isNotEmpty ||
+                              qteController.text.trim().isNotEmpty ||
+                              tvaController.text.trim().isNotEmpty)
+                          ? onAddMaterielLine
+                          : null, // Disabled if all fields are empty
                     ),
                   ),
                 ],
