@@ -35,6 +35,10 @@ class Rapport extends StatelessWidget {
   final Map<String, TextEditingController> extension34Value1Controllers;
   final Map<String, TextEditingController> extension34Value2Controllers;
   final TextEditingController extension34NecessiteController;
+  final Map<String, TextEditingController> entretienIncendieControllers;
+  final TextEditingController incendieQuantiteController;
+  final TextEditingController incendieTypeController;
+  final TextEditingController incendieAdaptationController;
 
   const Rapport({
     super.key,
@@ -69,6 +73,10 @@ class Rapport extends StatelessWidget {
     required this.extension34Value1Controllers,
     required this.extension34Value2Controllers,
     required this.extension34NecessiteController,
+    required this.entretienIncendieControllers,
+    required this.incendieQuantiteController,
+    required this.incendieTypeController,
+    required this.incendieAdaptationController,
   });
 
   Widget _buildReadOnlyField(String label, String value) {
@@ -253,6 +261,52 @@ class Rapport extends StatelessWidget {
                                 width: 120,
                                 child: Text(extension34NecessiteController.text, textAlign: TextAlign.right),
                               ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      if (entretienType == 'Entretien Incendie') ...[
+                        ...entretienIncendieControllers.entries.map((entry) =>
+                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ),
+                        SizedBox(height: 18),
+                        Text('Détails Incendie', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Quantité :",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 8),
+                              Text(incendieQuantiteController.text),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Type :",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 8),
+                              Text(incendieTypeController.text),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Adaptation :",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 8),
+                              Text(incendieAdaptationController.text),
                             ],
                           ),
                         ),

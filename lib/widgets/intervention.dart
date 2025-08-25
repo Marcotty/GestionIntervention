@@ -26,6 +26,10 @@ class Intervention extends StatelessWidget {
   final Map<String, TextEditingController> extension34Value2Controllers;
   final TextEditingController extension34NecessiteController;
   final String technicien;
+  final Map<String, TextEditingController> entretienIncendieControllers;
+  final TextEditingController incendieQuantiteController;
+  final TextEditingController incendieTypeController;
+  final TextEditingController incendieAdaptationController;
 
   const Intervention({
     super.key,
@@ -53,6 +57,10 @@ class Intervention extends StatelessWidget {
     required this.extension34Value2Controllers,
     required this.extension34NecessiteController,
     required this.technicien,
+    required this.entretienIncendieControllers,
+    required this.incendieQuantiteController,
+    required this.incendieTypeController,
+    required this.incendieAdaptationController,
   });
 
   static final List<Map<String, String>> entretienIntrusionFields = [
@@ -110,6 +118,28 @@ class Intervention extends StatelessWidget {
     'Rempl. pile/batt. sirène ext.',
     'Rempl. pile télécommande',
     'Rempl. batterie transmetteur',
+  ];
+
+  static final List<Map<String, String>> entretienIncendieFields = [
+    {'label': 'Différentiel séparé', 'hint': ''},
+    {'label': 'Disjoncteur séparé', 'hint': ''},
+    {'label': 'Vérification et essai des détecteurs', 'hint': ''},
+    {'label': 'Détecteurs de + 5ans', 'hint': ''},
+    {'label': 'Accès dégagé aux déclencheurs', 'hint': ''},
+    {'label': 'Vérification et essai des déclencheurs', 'hint': ''},
+    {'label': 'Vérification et essai processus d\'alarme', 'hint': ''},
+    {'label': 'Vérification et essai circuit électr. de la centrale', 'hint': ''},
+    {'label': 'Examen visuel des connexions', 'hint': ''},
+    {'label': 'Test coupure alim. et déclenchement', 'hint': ''},
+    {'label': 'Vérification des événements', 'hint': ''},
+    {'label': 'Modification date d\'échéance maintenance', 'hint': ''},
+    {'label': 'Vérification du carnet entretien', 'hint': ''},
+    {'label': 'Tension réseau (VAC)', 'hint': ''},
+    {'label': 'Tension de chargement (VDC)', 'hint': ''},
+    {'label': 'Tension sous charge (VDC)', 'hint': ''},
+    {'label': 'Cons. De chargement (mA)', 'hint': ''},
+    {'label': 'Cons. Sous charge (mA)', 'hint': ''},
+    {'label': 'Cons. alarme (mA)', 'hint': ''},
   ];
 
   @override
@@ -454,7 +484,7 @@ class Intervention extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: Row(
                         children: [
-                          SizedBox(width: 200, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(width: 208, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
                           SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
                           SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
                         ],
@@ -500,13 +530,12 @@ class Intervention extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: Row(
                         children: [
-                          SizedBox(width: 200, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(width: 208, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
                           SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
                           SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
                         ],
                       ),
                     ),
-                    // All except Nécessité d'adaptation du système
                     ...extension34Fields.where((field) => field['label'] != 'Nécessité d\'adaptation du système').map((field) => Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Row(
@@ -565,55 +594,147 @@ class Intervention extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],
-                  SizedBox(height: 18),
-                  Text('Remplacement Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 200, child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold))),
-                        SizedBox(width: 120, child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold))),
-                        SizedBox(width: 120, child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold))),
-                      ],
+                    SizedBox(height: 18),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 200),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  ...extension34RemplacementLabels.map((label) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
+                    ...extension34RemplacementLabels.map((label) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text(label, style: TextStyle(fontSize: 14)),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34TypeControllers[label],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34QteInitialeControllers[label],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 120,
+                            child: TextField(
+                              controller: extension34QteChangeeControllers[label],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                  ],
+                  // Only show these for Entretien Incendie:
+                  if (entretienType == 'Entretien Incendie') ...[
+                    ...entretienIncendieFields.map((field) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 200,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              field['label']!,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: TextField(
+                              textAlign: TextAlign.right,
+                              controller: entretienIncendieControllers[field['label']!],
+                              decoration: InputDecoration(
+                                hintText: field['hint'],
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 24),
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        Container(
                           width: 200,
-                          child: Text(label, style: TextStyle(fontSize: 14)),
+                          alignment: Alignment.centerLeft,
+                          child: Text('Quantité', style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(width: 8),
                         SizedBox(
                           width: 120,
                           child: TextField(
-                            controller: extension34TypeControllers[label],
+                            controller: incendieQuantiteController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                             ),
                           ),
                         ),
-                        SizedBox(width: 8),
-                        SizedBox(
-                          width: 120,
-                          child: TextField(
-                            controller: extension34QteInitialeControllers[label],
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                            ),
-                          ),
+                        SizedBox(width: 16),
+                        Container(
+                          width: 80,
+                          alignment: Alignment.centerLeft,
+                          child: Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(width: 8),
                         SizedBox(
                           width: 120,
                           child: TextField(
-                            controller: extension34QteChangeeControllers[label],
+                            controller: incendieTypeController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -622,7 +743,29 @@ class Intervention extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )),
+                    SizedBox(height: 18),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 200,
+                          alignment: Alignment.centerLeft,
+                          child: Text('Adaptation nécessaire du système', style: TextStyle(fontSize: 14)),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            textAlign: TextAlign.right,
+                            controller: incendieAdaptationController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),

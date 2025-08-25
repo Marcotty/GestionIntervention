@@ -172,6 +172,31 @@ class _MyHomePageState extends State<MyHomePage> {
   };
   final TextEditingController extension34NecessiteController = TextEditingController();
 
+  final Map<String, TextEditingController> entretienIncendieControllers = {
+    'Différentiel séparé': TextEditingController(),
+    'Disjoncteur séparé': TextEditingController(),
+    'Vérification et essai des détecteurs': TextEditingController(),
+    'Détecteurs de + 5ans': TextEditingController(),
+    'Accès dégagé aux déclencheurs': TextEditingController(),
+    'Vérification et essai des déclencheurs': TextEditingController(),
+    'Vérification et essai processus d\'alarme': TextEditingController(),
+    'Vérification et essai circuit électr. de la centrale': TextEditingController(),
+    'Examen visuel des connexions': TextEditingController(),
+    'Test coupure alim. et déclenchement': TextEditingController(),
+    'Vérification des événements': TextEditingController(),
+    'Modification date d\'échéance maintenance': TextEditingController(),
+    'Vérification du carnet entretien': TextEditingController(),
+    'Tension réseau (VAC)': TextEditingController(),
+    'Tension de chargement (VDC)': TextEditingController(),
+    'Tension sous charge (VDC)': TextEditingController(),
+    'Cons. De chargement (mA)': TextEditingController(),
+    'Cons. Sous charge (mA)': TextEditingController(),
+    'Cons. alarme (mA)': TextEditingController(),
+  };
+  final TextEditingController incendieQuantiteController = TextEditingController();
+  final TextEditingController incendieTypeController = TextEditingController();
+  final TextEditingController incendieAdaptationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -272,6 +297,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension34Value2Controllers: extension34Value2Controllers,
                 extension34NecessiteController: extension34NecessiteController,
                 technicien: technicien,
+                entretienIncendieControllers: entretienIncendieControllers,
+                incendieQuantiteController: incendieQuantiteController,
+                incendieTypeController: incendieTypeController,
+                incendieAdaptationController: incendieAdaptationController,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -306,6 +335,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension34Value1Controllers: extension34Value1Controllers,
                 extension34Value2Controllers: extension34Value2Controllers,
                 extension34NecessiteController: extension34NecessiteController,
+                entretienIncendieControllers: entretienIncendieControllers,
+                incendieQuantiteController: incendieQuantiteController,
+                incendieTypeController: incendieTypeController,
+                incendieAdaptationController: incendieAdaptationController,
               ),
             ],
           ),
