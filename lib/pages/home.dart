@@ -214,12 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Row(
-              children: [
-                Text(widget.title),
-                Center(child: Image.asset('assets/logo.png', height: 40)),
-              ],
-            ),
+            foregroundColor: Colors.black,
+            title: Center(child: Image.asset('assets/logo.png', height: 60)),
             bottom: TabBar(
               tabs: [
                 Tab(text: 'Client'),
@@ -227,6 +223,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Tab(text: 'Signature'),
                 Tab(text: 'Rapport'),
               ],
+              indicator: BoxDecoration(color: Colors.blue[100]),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.black, // Selected tab text color
+              unselectedLabelColor: Colors.black54, // Unselected tab text color
             ),
           ),
           body: TabBarView(
