@@ -213,8 +213,13 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.grey[500],
-            title: Text(widget.title),
+            backgroundColor: Colors.white,
+            title: Row(
+              children: [
+                Text(widget.title),
+                Center(child: Image.asset('assets/logo.png', height: 40)),
+              ],
+            ),
             bottom: TabBar(
               tabs: [
                 Tab(text: 'Client'),

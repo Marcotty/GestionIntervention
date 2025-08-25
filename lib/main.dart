@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Gestion Intervention',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 125, 124, 124),
+          seedColor: const Color.fromARGB(255, 223, 222, 222),
         ),
       ),
       home: const MyHomePage(title: 'Prototype Intervention'),
