@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Client extends StatelessWidget {
+class Client extends StatefulWidget {
   final Map<String, TextEditingController> clientFacturationControllers;
   final Map<String, TextEditingController> clientInstallationControllers;
   final TextEditingController interventionNumController;
@@ -31,6 +31,19 @@ class Client extends StatelessWidget {
   });
 
   @override
+  State<Client> createState() => _ClientState();
+}
+
+class _ClientState extends State<Client> {
+  bool linkEnabled = false;
+
+  void _toggleLink() {
+    setState(() {
+      linkEnabled = !linkEnabled;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -44,24 +57,22 @@ class Client extends StatelessWidget {
                 width: 400,
                 child: ClientInfos(
                   'Facturation',
-                  controllers: clientFacturationControllers,
+                  controllers: widget.clientFacturationControllers,
+                  onFieldChanged: linkEnabled
+                      ? (label, value) {
+                          if (widget.clientInstallationControllers.containsKey(label)) {
+                            widget.clientInstallationControllers[label]!.text = value;
+                          }
+                        }
+                      : null,
                 ),
               ),
-              // Link button between Facturation and Installation
               Padding(
-                padding: const EdgeInsets.only(top: 560.0),
+                padding: const EdgeInsets.only(top: 48.0),
                 child: TextButton.icon(
-                  icon: Icon(Icons.link),
-                  label: Text('Copier'),
-                  onPressed: () {
-                    // Copy all facturation values to installation
-                    clientInstallationControllers.forEach((key, controller) {
-                      final factController = clientFacturationControllers[key];
-                      if (factController != null) {
-                        controller.text = factController.text;
-                      }
-                    });
-                  },
+                  icon: Icon(linkEnabled ? Icons.link : Icons.link_off),
+                  label: Text(linkEnabled ? 'Liaison activée' : 'Activer la liaison'),
+                  onPressed: _toggleLink,
                 ),
               ),
               SizedBox(width: 32),
@@ -69,23 +80,30 @@ class Client extends StatelessWidget {
                 width: 400,
                 child: ClientInfos(
                   'Installation',
-                  controllers: clientInstallationControllers,
+                  controllers: widget.clientInstallationControllers,
+                  onFieldChanged: linkEnabled
+                      ? (label, value) {
+                          if (widget.clientFacturationControllers.containsKey(label)) {
+                            widget.clientFacturationControllers[label]!.text = value;
+                          }
+                        }
+                      : null,
                 ),
               ),
             ],
           ),
           SizedBox(height: 48),
           InterventionInfos(
-            numController: interventionNumController,
-            dateController: interventionDateController,
-            heureController: interventionHeureController,
-            technicien: technicien,
-            onTechnicienChanged: onTechnicienChanged,
-            selectedTags: selectedTags,
-            onTagsChanged: onTagsChanged,
-            motifController: motifController,
-            noteController: noteController,
-            materielController: materielController,
+            numController: widget.interventionNumController,
+            dateController: widget.interventionDateController,
+            heureController: widget.interventionHeureController,
+            technicien: widget.technicien,
+            onTechnicienChanged: widget.onTechnicienChanged,
+            selectedTags: widget.selectedTags,
+            onTagsChanged: widget.onTagsChanged,
+            motifController: widget.motifController,
+            noteController: widget.noteController,
+            materielController: widget.materielController,
           ),
         ],
       ),
@@ -94,10 +112,11 @@ class Client extends StatelessWidget {
 }
 
 class ClientInfos extends StatelessWidget {
-  const ClientInfos(this.title, {super.key, required this.controllers});
+  const ClientInfos(this.title, {super.key, required this.controllers, this.onFieldChanged});
 
   final String title;
   final Map<String, TextEditingController> controllers;
+  final void Function(String label, String value)? onFieldChanged;
   final List<Map<String, String>> fields = const [
     {'label': 'Nom', 'hint': 'Entrez le nom'},
     {'label': 'Prénom', 'hint': 'Entrez le prénom'},
@@ -132,6 +151,11 @@ class ClientInfos extends StatelessWidget {
                     TextField(
                       controller: controllers[field['label']!],
                       decoration: InputDecoration(hintText: field['hint']),
+                      onChanged: (value) {
+                        if (onFieldChanged != null) {
+                          onFieldChanged!(field['label']!, value);
+                        }
+                      },
                     ),
                   ],
                 ),
