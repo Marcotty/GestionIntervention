@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 class Intervention extends StatelessWidget {
   final TextEditingController panneController;
@@ -160,9 +161,19 @@ class Intervention extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
-            Text(
-              'Intervention n* $interventionNumber',
-              style: TextStyle(fontSize: 18),
+            Row(
+              children: [
+                SizedBox(width: 50),
+                Text(
+                  'Intervention n° $interventionNumber',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(width: 450),
+                Text(
+                  'Prévue le ${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
             ),
             SizedBox(height: 32),
             Row(
