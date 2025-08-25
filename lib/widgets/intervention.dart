@@ -128,7 +128,10 @@ class Intervention extends StatelessWidget {
     {'label': 'Accès dégagé aux déclencheurs', 'hint': ''},
     {'label': 'Vérification et essai des déclencheurs', 'hint': ''},
     {'label': 'Vérification et essai processus d\'alarme', 'hint': ''},
-    {'label': 'Vérification et essai circuit électr. de la centrale', 'hint': ''},
+    {
+      'label': 'Vérification et essai circuit électr. de la centrale',
+      'hint': '',
+    },
     {'label': 'Examen visuel des connexions', 'hint': ''},
     {'label': 'Test coupure alim. et déclenchement', 'hint': ''},
     {'label': 'Vérification des événements', 'hint': ''},
@@ -377,13 +380,17 @@ class Intervention extends StatelessWidget {
                               children: [
                                 SimpleDialogOption(
                                   child: Text('Entretien Intrusion'),
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Entretien Intrusion'),
+                                  onPressed: () => Navigator.pop(
+                                    context,
+                                    'Entretien Intrusion',
+                                  ),
                                 ),
                                 SimpleDialogOption(
                                   child: Text('Entretien Incendie'),
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Entretien Incendie'),
+                                  onPressed: () => Navigator.pop(
+                                    context,
+                                    'Entretien Incendie',
+                                  ),
                                 ),
                               ],
                             ),
@@ -414,162 +421,263 @@ class Intervention extends StatelessWidget {
                       SizedBox(width: 32),
                       Text(
                         'Technicien: $technicien',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 16),
                   if (entretienType == 'Entretien Intrusion') ...[
-                    ...entretienIntrusionFields.map((field) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 200,
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              field['label']!,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: TextField(
-                              textAlign: TextAlign.right,
-                              controller: entretienIntrusionControllers[field['label']!],
-                              decoration: InputDecoration(
-                                hintText: field['hint'],
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    ...entretienIntrusionFields.map(
+                      (field) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 200,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                field['label']!,
+                                style: TextStyle(fontSize: 14),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                    SizedBox(height: 18),
-                    Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    ...centraleFields.map((field) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 200,
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              field['label']!,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: TextField(
-                              textAlign: TextAlign.right,
-                              controller: centraleControllers[field['label']!],
-                              decoration: InputDecoration(
-                                hintText: field['hint'],
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.right,
+                                controller:
+                                    entretienIntrusionControllers[field['label']!],
+                                decoration: InputDecoration(
+                                  hintText: field['hint'],
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                     SizedBox(height: 18),
-                    Text('Extension 1-2', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(
+                      'Centrale',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    ...centraleFields.map(
+                      (field) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 200,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                field['label']!,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.right,
+                                controller:
+                                    centraleControllers[field['label']!],
+                                decoration: InputDecoration(
+                                  hintText: field['hint'],
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 18),
+                    Text(
+                      'Extension 1-2',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: Row(
                         children: [
-                          SizedBox(width: 208, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
-                          SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
-                          SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(
+                            width: 208,
+                            child: Text(
+                              '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Valeur 1',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Valeur 2',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    ...extension12Fields.map((field) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: Text(field['label']!, style: TextStyle(fontSize: 14)),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension12Value1Controllers[field['label']!],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    ...extension12Fields.map(
+                      (field) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: Text(
+                                field['label']!,
+                                style: TextStyle(fontSize: 14),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension12Value2Controllers[field['label']!],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: 120,
+                              child: TextField(
+                                controller:
+                                    extension12Value1Controllers[field['label']!],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: 120,
+                              child: TextField(
+                                controller:
+                                    extension12Value2Controllers[field['label']!],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                     SizedBox(height: 18),
-                    Text('Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(
+                      'Extension 3-4',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: Row(
                         children: [
-                          SizedBox(width: 208, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
-                          SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
-                          SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(
+                            width: 208,
+                            child: Text(
+                              '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Valeur 1',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Valeur 2',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    ...extension34Fields.where((field) => field['label'] != 'Nécessité d\'adaptation du système').map((field) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: Text(field['label']!, style: TextStyle(fontSize: 14)),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension34Value1Controllers[field['label']!],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                              ),
+                    ...extension34Fields
+                        .where(
+                          (field) =>
+                              field['label'] !=
+                              'Nécessité d\'adaptation du système',
+                        )
+                        .map(
+                          (field) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(
+                                    field['label']!,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                SizedBox(
+                                  width: 120,
+                                  child: TextField(
+                                    controller:
+                                        extension34Value1Controllers[field['label']!],
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                SizedBox(
+                                  width: 120,
+                                  child: TextField(
+                                    controller:
+                                        extension34Value2Controllers[field['label']!],
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension34Value2Controllers[field['label']!],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )),
+                        ),
                     // Nécessité d'adaptation du système (single input)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
@@ -578,7 +686,10 @@ class Intervention extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: 200,
-                            child: Text('Nécessité d\'adaptation du système', style: TextStyle(fontSize: 14)),
+                            child: Text(
+                              'Nécessité d\'adaptation du système',
+                              style: TextStyle(fontSize: 14),
+                            ),
                           ),
                           SizedBox(width: 8),
                           SizedBox(
@@ -587,7 +698,10 @@ class Intervention extends StatelessWidget {
                               controller: extension34NecessiteController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 8,
+                                ),
                               ),
                             ),
                           ),
@@ -606,7 +720,10 @@ class Intervention extends StatelessWidget {
                             width: 120,
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text(
+                                'Type:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           SizedBox(width: 8),
@@ -614,7 +731,10 @@ class Intervention extends StatelessWidget {
                             width: 120,
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text(
+                                'Quantité initiale',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           SizedBox(width: 8),
@@ -622,88 +742,113 @@ class Intervention extends StatelessWidget {
                             width: 120,
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text(
+                                'Quantité changée',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    ...extension34RemplacementLabels.map((label) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: Text(label, style: TextStyle(fontSize: 14)),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension34TypeControllers[label],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    ...extension34RemplacementLabels.map(
+                      (label) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: Text(
+                                label,
+                                style: TextStyle(fontSize: 14),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension34QteInitialeControllers[label],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: 120,
+                              child: TextField(
+                                controller: extension34TypeControllers[label],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox(
-                            width: 120,
-                            child: TextField(
-                              controller: extension34QteChangeeControllers[label],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: 120,
+                              child: TextField(
+                                controller:
+                                    extension34QteInitialeControllers[label],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: 120,
+                              child: TextField(
+                                controller:
+                                    extension34QteChangeeControllers[label],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                   // Only show these for Entretien Incendie:
                   if (entretienType == 'Entretien Incendie') ...[
-                    ...entretienIncendieFields.map((field) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 200,
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              field['label']!,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: TextField(
-                              textAlign: TextAlign.right,
-                              controller: entretienIncendieControllers[field['label']!],
-                              decoration: InputDecoration(
-                                hintText: field['hint'],
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    ...entretienIncendieFields.map(
+                      (field) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 200,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                field['label']!,
+                                style: TextStyle(fontSize: 14),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.right,
+                                controller:
+                                    entretienIncendieControllers[field['label']!],
+                                decoration: InputDecoration(
+                                  hintText: field['hint'],
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                     SizedBox(height: 24),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -711,7 +856,10 @@ class Intervention extends StatelessWidget {
                         Container(
                           width: 200,
                           alignment: Alignment.centerLeft,
-                          child: Text('Quantité', style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Quantité',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(width: 8),
                         SizedBox(
@@ -720,7 +868,10 @@ class Intervention extends StatelessWidget {
                             controller: incendieQuantiteController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 8,
+                              ),
                             ),
                           ),
                         ),
@@ -728,7 +879,10 @@ class Intervention extends StatelessWidget {
                         Container(
                           width: 80,
                           alignment: Alignment.centerLeft,
-                          child: Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Type',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(width: 8),
                         SizedBox(
@@ -737,7 +891,10 @@ class Intervention extends StatelessWidget {
                             controller: incendieTypeController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 8,
+                              ),
                             ),
                           ),
                         ),
@@ -750,7 +907,10 @@ class Intervention extends StatelessWidget {
                         Container(
                           width: 200,
                           alignment: Alignment.centerLeft,
-                          child: Text('Adaptation nécessaire du système', style: TextStyle(fontSize: 14)),
+                          child: Text(
+                            'Adaptation nécessaire du système',
+                            style: TextStyle(fontSize: 14),
+                          ),
                         ),
                         SizedBox(width: 16),
                         Expanded(
@@ -759,7 +919,10 @@ class Intervention extends StatelessWidget {
                             controller: incendieAdaptationController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 8,
+                              ),
                             ),
                           ),
                         ),

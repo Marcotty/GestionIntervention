@@ -99,23 +99,26 @@ class ClientInfos extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 32),
-            ...fields.map((field) => Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${field['label']} :'),
-                  TextField(
-                    controller: controllers[field['label']!],
-                    decoration: InputDecoration(
-                      hintText: field['hint'],
+            ...fields.map(
+              (field) => Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${field['label']} :'),
+                    TextField(
+                      controller: controllers[field['label']!],
+                      decoration: InputDecoration(hintText: field['hint']),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -154,8 +157,16 @@ class InterventionInfos extends StatefulWidget {
 
 class _InterventionInfosState extends State<InterventionInfos> {
   final List<String> allTags = [
-    'Dépannage', 'Maintenance', 'Adaptation', 'Installation', 'Mise en sécurité',
-    'Intrusion', 'Incendie', 'CCTV', "Contrôle d'accès", 'Vidéophonie'
+    'Dépannage',
+    'Maintenance',
+    'Adaptation',
+    'Installation',
+    'Mise en sécurité',
+    'Intrusion',
+    'Incendie',
+    'CCTV',
+    "Contrôle d'accès",
+    'Vidéophonie',
   ];
   List<String> selectedTags = [];
 
@@ -182,7 +193,13 @@ class _InterventionInfosState extends State<InterventionInfos> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Intervention Infos', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Intervention Infos',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 24),
                       Text('N* :'),
                       TextField(
@@ -226,7 +243,13 @@ class _InterventionInfosState extends State<InterventionInfos> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Technicien :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Technicien :',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 16),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
@@ -234,9 +257,18 @@ class _InterventionInfosState extends State<InterventionInfos> {
                         ),
                         value: widget.technicien,
                         items: [
-                          DropdownMenuItem(value: 'Jean Dupont', child: Text('Jean Dupont')),
-                          DropdownMenuItem(value: 'Marie Martin', child: Text('Marie Martin')),
-                          DropdownMenuItem(value: 'Ali Ben', child: Text('Ali Ben')),
+                          DropdownMenuItem(
+                            value: 'Jean Dupont',
+                            child: Text('Jean Dupont'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Marie Martin',
+                            child: Text('Marie Martin'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Ali Ben',
+                            child: Text('Ali Ben'),
+                          ),
                         ],
                         onChanged: widget.onTechnicienChanged,
                       ),
@@ -258,25 +290,36 @@ class _InterventionInfosState extends State<InterventionInfos> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Objet de l'intervention :", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(
+                  "Objet de l'intervention :",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 16),
                 Wrap(
                   spacing: 8,
-                  children: widget.selectedTags.map((tag) => Chip(
-                    label: Text(tag),
-                    onDeleted: () {
-                      final newTags = List<String>.from(widget.selectedTags);
-                      newTags.remove(tag);
-                      widget.onTagsChanged(newTags);
-                    },
-                  )).toList(),
+                  children: widget.selectedTags
+                      .map(
+                        (tag) => Chip(
+                          label: Text(tag),
+                          onDeleted: () {
+                            final newTags = List<String>.from(
+                              widget.selectedTags,
+                            );
+                            newTags.remove(tag);
+                            widget.onTagsChanged(newTags);
+                          },
+                        ),
+                      )
+                      .toList(),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton.icon(
                   icon: Icon(Icons.add),
                   label: Text('Ajouter un objet'),
                   onPressed: () async {
-                    final List<String> availableTags = allTags.where((tag) => !widget.selectedTags.contains(tag)).toList();
+                    final List<String> availableTags = allTags
+                        .where((tag) => !widget.selectedTags.contains(tag))
+                        .toList();
                     final List<String> tempSelected = [];
                     final List<String>? picked = await showDialog<List<String>>(
                       context: context,
@@ -287,19 +330,23 @@ class _InterventionInfosState extends State<InterventionInfos> {
                               title: Text('Sélectionner des objets'),
                               content: SingleChildScrollView(
                                 child: Column(
-                                  children: availableTags.map((tag) => CheckboxListTile(
-                                    title: Text(tag),
-                                    value: tempSelected.contains(tag),
-                                    onChanged: (checked) {
-                                      setStateDialog(() {
-                                        if (checked == true) {
-                                          tempSelected.add(tag);
-                                        } else {
-                                          tempSelected.remove(tag);
-                                        }
-                                      });
-                                    },
-                                  )).toList(),
+                                  children: availableTags
+                                      .map(
+                                        (tag) => CheckboxListTile(
+                                          title: Text(tag),
+                                          value: tempSelected.contains(tag),
+                                          onChanged: (checked) {
+                                            setStateDialog(() {
+                                              if (checked == true) {
+                                                tempSelected.add(tag);
+                                              } else {
+                                                tempSelected.remove(tag);
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      )
+                                      .toList(),
                                 ),
                               ),
                               actions: [
@@ -309,7 +356,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                                 ),
                                 ElevatedButton(
                                   child: Text('Valider'),
-                                  onPressed: () => Navigator.pop(context, tempSelected),
+                                  onPressed: () =>
+                                      Navigator.pop(context, tempSelected),
                                 ),
                               ],
                             );
@@ -327,7 +375,7 @@ class _InterventionInfosState extends State<InterventionInfos> {
               ],
             ),
           ),
-      
+
           SizedBox(height: 32),
           // Motif de l'intervention
           Container(
@@ -341,7 +389,10 @@ class _InterventionInfosState extends State<InterventionInfos> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Motif de l'intervention", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(
+                  "Motif de l'intervention",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 16),
                 TextField(
                   controller: widget.motifController,
@@ -354,7 +405,7 @@ class _InterventionInfosState extends State<InterventionInfos> {
               ],
             ),
           ),
-      
+
           SizedBox(height: 32),
           // Note intervention
           Container(
@@ -368,7 +419,10 @@ class _InterventionInfosState extends State<InterventionInfos> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Note intervention", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(
+                  "Note intervention",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 16),
                 TextField(
                   controller: widget.noteController,
@@ -381,7 +435,7 @@ class _InterventionInfosState extends State<InterventionInfos> {
               ],
             ),
           ),
-      
+
           SizedBox(height: 32),
           // Matériel
           Container(
@@ -395,7 +449,10 @@ class _InterventionInfosState extends State<InterventionInfos> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Matériel", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(
+                  "Matériel",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 16),
                 TextField(
                   controller: widget.materielController,

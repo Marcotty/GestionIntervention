@@ -12,9 +12,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gestion Intervention',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 125, 124, 124)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 125, 124, 124),
+        ),
       ),
-      home: const MyHomePage(title: 'Intervention'),
+      home: const MyHomePage(title: 'Prototype Intervention'),
     );
   }
 }

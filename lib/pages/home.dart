@@ -135,13 +135,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Add in _MyHomePageState:
   final Map<String, TextEditingController> extension34TypeControllers = {
-    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+    for (var label in Intervention.extension34RemplacementLabels)
+      label: TextEditingController(),
   };
   final Map<String, TextEditingController> extension34QteInitialeControllers = {
-    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+    for (var label in Intervention.extension34RemplacementLabels)
+      label: TextEditingController(),
   };
   final Map<String, TextEditingController> extension34QteChangeeControllers = {
-    for (var label in Intervention.extension34RemplacementLabels) label: TextEditingController(),
+    for (var label in Intervention.extension34RemplacementLabels)
+      label: TextEditingController(),
   };
 
   final Map<String, TextEditingController> extension12Value1Controllers = {
@@ -170,7 +173,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'Tension zones (VDC)': TextEditingController(),
     'Cons. Repos (mA)': TextEditingController(),
   };
-  final TextEditingController extension34NecessiteController = TextEditingController();
+  final TextEditingController extension34NecessiteController =
+      TextEditingController();
 
   final Map<String, TextEditingController> entretienIncendieControllers = {
     'Différentiel séparé': TextEditingController(),
@@ -180,7 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'Accès dégagé aux déclencheurs': TextEditingController(),
     'Vérification et essai des déclencheurs': TextEditingController(),
     'Vérification et essai processus d\'alarme': TextEditingController(),
-    'Vérification et essai circuit électr. de la centrale': TextEditingController(),
+    'Vérification et essai circuit électr. de la centrale':
+        TextEditingController(),
     'Examen visuel des connexions': TextEditingController(),
     'Test coupure alim. et déclenchement': TextEditingController(),
     'Vérification des événements': TextEditingController(),
@@ -193,9 +198,11 @@ class _MyHomePageState extends State<MyHomePage> {
     'Cons. Sous charge (mA)': TextEditingController(),
     'Cons. alarme (mA)': TextEditingController(),
   };
-  final TextEditingController incendieQuantiteController = TextEditingController();
+  final TextEditingController incendieQuantiteController =
+      TextEditingController();
   final TextEditingController incendieTypeController = TextEditingController();
-  final TextEditingController incendieAdaptationController = TextEditingController();
+  final TextEditingController incendieAdaptationController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -225,8 +232,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     SizedBox(height: 24),
                     Client(
-                      clientFacturationControllers: clientFacturationControllers,
-                      clientInstallationControllers: clientInstallationControllers,
+                      clientFacturationControllers:
+                          clientFacturationControllers,
+                      clientInstallationControllers:
+                          clientInstallationControllers,
                       interventionNumController: interventionNumController,
                       interventionDateController: interventionDateController,
                       interventionHeureController: interventionHeureController,
@@ -289,8 +298,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension12Controllers: extension12Controllers,
                 extension34Controllers: extension34Controllers,
                 extension34TypeControllers: extension34TypeControllers,
-                extension34QteInitialeControllers: extension34QteInitialeControllers,
-                extension34QteChangeeControllers: extension34QteChangeeControllers,
+                extension34QteInitialeControllers:
+                    extension34QteInitialeControllers,
+                extension34QteChangeeControllers:
+                    extension34QteChangeeControllers,
                 extension12Value1Controllers: extension12Value1Controllers,
                 extension12Value2Controllers: extension12Value2Controllers,
                 extension34Value1Controllers: extension34Value1Controllers,
@@ -328,8 +339,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 extension12Controllers: extension12Controllers,
                 extension34Controllers: extension34Controllers,
                 extension34TypeControllers: extension34TypeControllers,
-                extension34QteInitialeControllers: extension34QteInitialeControllers,
-                extension34QteChangeeControllers: extension34QteChangeeControllers,
+                extension34QteInitialeControllers:
+                    extension34QteInitialeControllers,
+                extension34QteChangeeControllers:
+                    extension34QteChangeeControllers,
                 extension12Value1Controllers: extension12Value1Controllers,
                 extension12Value2Controllers: extension12Value2Controllers,
                 extension34Value1Controllers: extension34Value1Controllers,

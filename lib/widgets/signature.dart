@@ -29,7 +29,10 @@ class _SignatureWidgetState extends State<SignatureWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Client Signature', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text(
+              'Client Signature',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             SizedBox(height: 16),
             GestureDetector(
               onHorizontalDragUpdate: (_) {}, // Block horizontal drag
@@ -68,7 +71,8 @@ class _SignatureWidgetState extends State<SignatureWidget> {
                         setState(() {
                           _signatureImage = image;
                         });
-                        if (widget.onSignatureValidated != null && image != null) {
+                        if (widget.onSignatureValidated != null &&
+                            image != null) {
                           widget.onSignatureValidated!(image);
                         }
                       },

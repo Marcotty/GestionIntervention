@@ -85,7 +85,10 @@ class Rapport extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 120, child: Text(label, style: TextStyle(fontWeight: FontWeight.bold))),
+          SizedBox(
+            width: 120,
+            child: Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
           Expanded(child: Text(value)),
         ],
       ),
@@ -115,8 +118,16 @@ class Rapport extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Facturation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                      ...clientFacturationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
+                      Text(
+                        'Facturation',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      ...clientFacturationControllers.entries.map(
+                        (e) => _buildReadOnlyField(e.key, e.value.text),
+                      ),
                     ],
                   ),
                 ),
@@ -132,8 +143,16 @@ class Rapport extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Installation', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                      ...clientInstallationControllers.entries.map((e) => _buildReadOnlyField(e.key, e.value.text)),
+                      Text(
+                        'Installation',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      ...clientInstallationControllers.entries.map(
+                        (e) => _buildReadOnlyField(e.key, e.value.text),
+                      ),
                     ],
                   ),
                 ),
@@ -156,12 +175,27 @@ class Rapport extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Intervention Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Intervention Infos',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       _buildReadOnlyField('N*', interventionNumController.text),
-                      _buildReadOnlyField('Date', interventionDateController.text),
-                      _buildReadOnlyField('Heure', interventionHeureController.text),
+                      _buildReadOnlyField(
+                        'Date',
+                        interventionDateController.text,
+                      ),
+                      _buildReadOnlyField(
+                        'Heure',
+                        interventionHeureController.text,
+                      ),
                       _buildReadOnlyField('Technicien', technicien),
-                      _buildReadOnlyField("Objet de l'intervention", selectedTags.join(', ')),
+                      _buildReadOnlyField(
+                        "Objet de l'intervention",
+                        selectedTags.join(', '),
+                      ),
                       _buildReadOnlyField('Motif', motifController.text),
                       _buildReadOnlyField('Note', noteController.text),
                       _buildReadOnlyField('Matériel', materielController.text),
@@ -178,99 +212,213 @@ class Rapport extends StatelessWidget {
                         ),
                       ),
                       if (entretienType == 'Entretien Intrusion') ...[
-                        ...entretienIntrusionControllers.entries.map((entry) =>
-                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ...entretienIntrusionControllers.entries.map(
+                          (entry) =>
+                              _buildReadOnlyField(entry.key, entry.value.text),
                         ),
                         SizedBox(height: 18),
-                        Text('Centrale', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                        ...centraleControllers.entries.map((entry) =>
-                          _buildReadOnlyField(entry.key, entry.value.text)
+                        Text(
+                          'Centrale',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        ...centraleControllers.entries.map(
+                          (entry) =>
+                              _buildReadOnlyField(entry.key, entry.value.text),
                         ),
                         SizedBox(height: 18),
-                        Text('Extension 1-2', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        Text(
+                          'Extension 1-2',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                         Container(
                           margin: const EdgeInsets.only(top: 8, bottom: 8),
                           child: Row(
                             children: [
-                              SizedBox(width: 200, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
-                              SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
-                              SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  '',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  'Valeur 1',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  'Valeur 2',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        ...Intervention.extension12Fields.map((field) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 200, child: Text(field['label']!, style: TextStyle(fontSize: 14))),
-                              SizedBox(width: 8),
-                              SizedBox(
-                                width: 120,
-                                child: Text(extension12Value1Controllers[field['label']!]?.text ?? '', textAlign: TextAlign.right),
-                              ),
-                              SizedBox(width: 8),
-                              SizedBox(
-                                width: 120,
-                                child: Text(extension12Value2Controllers[field['label']!]?.text ?? '', textAlign: TextAlign.right),
-                              ),
-                            ],
+                        ...Intervention.extension12Fields.map(
+                          (field) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(
+                                    field['label']!,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                SizedBox(
+                                  width: 120,
+                                  child: Text(
+                                    extension12Value1Controllers[field['label']!]
+                                            ?.text ??
+                                        '',
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                SizedBox(
+                                  width: 120,
+                                  child: Text(
+                                    extension12Value2Controllers[field['label']!]
+                                            ?.text ??
+                                        '',
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        )),
+                        ),
                         SizedBox(height: 18),
-                        Text('Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        Text(
+                          'Extension 3-4',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                         Container(
                           margin: const EdgeInsets.only(top: 8, bottom: 8),
                           child: Row(
                             children: [
-                              SizedBox(width: 200, child: Text('', style: TextStyle(fontWeight: FontWeight.bold))),
-                              SizedBox(width: 120, child: Text('Valeur 1', style: TextStyle(fontWeight: FontWeight.bold))),
-                              SizedBox(width: 120, child: Text('Valeur 2', style: TextStyle(fontWeight: FontWeight.bold))),
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  '',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  'Valeur 1',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  'Valeur 2',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         // All except Nécessité d'adaptation du système
-                        ...Intervention.extension34Fields.where((field) => field['label'] != 'Nécessité d\'adaptation du système').map((field) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 200, child: Text(field['label']!, style: TextStyle(fontSize: 14))),
-                              SizedBox(width: 8),
-                              SizedBox(
-                                width: 120,
-                                child: Text(extension34Value1Controllers[field['label']!]?.text ?? '', textAlign: TextAlign.right),
+                        ...Intervention.extension34Fields
+                            .where(
+                              (field) =>
+                                  field['label'] !=
+                                  'Nécessité d\'adaptation du système',
+                            )
+                            .map(
+                              (field) => Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        field['label']!,
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    SizedBox(
+                                      width: 120,
+                                      child: Text(
+                                        extension34Value1Controllers[field['label']!]
+                                                ?.text ??
+                                            '',
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    SizedBox(
+                                      width: 120,
+                                      child: Text(
+                                        extension34Value2Controllers[field['label']!]
+                                                ?.text ??
+                                            '',
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              SizedBox(width: 8),
-                              SizedBox(
-                                width: 120,
-                                child: Text(extension34Value2Controllers[field['label']!]?.text ?? '', textAlign: TextAlign.right),
-                              ),
-                            ],
-                          ),
-                        )),
+                            ),
                         // Nécessité d'adaptation du système (single input)
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SizedBox(width: 200, child: Text('Nécessité d\'adaptation du système', style: TextStyle(fontSize: 14))),
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  'Nécessité d\'adaptation du système',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ),
                               SizedBox(width: 8),
                               SizedBox(
                                 width: 120,
-                                child: Text(extension34NecessiteController.text, textAlign: TextAlign.right),
+                                child: Text(
+                                  extension34NecessiteController.text,
+                                  textAlign: TextAlign.right,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ],
                       if (entretienType == 'Entretien Incendie') ...[
-                        ...entretienIncendieControllers.entries.map((entry) =>
-                          _buildReadOnlyField(entry.key, entry.value.text)
+                        ...entretienIncendieControllers.entries.map(
+                          (entry) =>
+                              _buildReadOnlyField(entry.key, entry.value.text),
                         ),
                         SizedBox(height: 18),
-                        Text('Détails Incendie', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        Text(
+                          'Détails Incendie',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
@@ -326,17 +474,48 @@ class Rapport extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Travail Infos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Travail Infos',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       _buildReadOnlyField('Panne', panneController.text),
-                      _buildReadOnlyField('Travail Réalisé', travailController.text),
-                      ...materielLines.map((line) => Row(
-                        children: [
-                          Expanded(child: _buildReadOnlyField('Référence', line['Référence'] ?? '')),
-                          Expanded(child: _buildReadOnlyField('Désignation', line['Désignation'] ?? '')),
-                          Expanded(child: _buildReadOnlyField('Qté', line['Qté'] ?? '')),
-                          Expanded(child: _buildReadOnlyField('TVA', line['TVA'] ?? '')),
-                        ],
-                      )),
+                      _buildReadOnlyField(
+                        'Travail Réalisé',
+                        travailController.text,
+                      ),
+                      ...materielLines.map(
+                        (line) => Row(
+                          children: [
+                            Expanded(
+                              child: _buildReadOnlyField(
+                                'Référence',
+                                line['Référence'] ?? '',
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildReadOnlyField(
+                                'Désignation',
+                                line['Désignation'] ?? '',
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildReadOnlyField(
+                                'Qté',
+                                line['Qté'] ?? '',
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildReadOnlyField(
+                                'TVA',
+                                line['TVA'] ?? '',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -354,7 +533,10 @@ class Rapport extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Signature', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  'Signature',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 16),
                 if (signatureImage != null)
                   Center(
@@ -364,72 +546,12 @@ class Rapport extends StatelessWidget {
                     ),
                   )
                 else
-                  Center(child: Text('Aucune signature enregistrée')), // No signature
+                  Center(
+                    child: Text('Aucune signature enregistrée'),
+                  ), // No signature
               ],
             ),
           ),
-          if (entretienType == 'Entretien Intrusion') ...[
-            SizedBox(height: 18),
-            Text('Remplacement Extension 3-4', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            Container(
-              margin: const EdgeInsets.only(top: 8, bottom: 8),
-              child: Row(
-                children: [
-                  SizedBox(width: 200, child: Text('Type:', style: TextStyle(fontWeight: FontWeight.bold))),
-                  SizedBox(width: 120, child: Text('Quantité initiale', style: TextStyle(fontWeight: FontWeight.bold))),
-                  SizedBox(width: 120, child: Text('Quantité changée', style: TextStyle(fontWeight: FontWeight.bold))),
-                ],
-              ),
-            ),
-            ...Intervention.extension34RemplacementLabels.map((label) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 200,
-                    child: Text(label, style: TextStyle(fontSize: 14)),
-                  ),
-                  SizedBox(width: 8),
-                  SizedBox(
-                    width: 120,
-                    child: TextField(
-                      controller: extension34TypeControllers[label],
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  SizedBox(
-                    width: 120,
-                    child: TextField(
-                      controller: extension34QteInitialeControllers[label],
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  SizedBox(
-                    width: 120,
-                    child: TextField(
-                      controller: extension34QteChangeeControllers[label],
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )),
-          ],
         ],
       ),
     );
