@@ -47,6 +47,23 @@ class Client extends StatelessWidget {
                   controllers: clientFacturationControllers,
                 ),
               ),
+              // Link button between Facturation and Installation
+              Padding(
+                padding: const EdgeInsets.only(top: 560.0),
+                child: TextButton.icon(
+                  icon: Icon(Icons.link),
+                  label: Text('Copier'),
+                  onPressed: () {
+                    // Copy all facturation values to installation
+                    clientInstallationControllers.forEach((key, controller) {
+                      final factController = clientFacturationControllers[key];
+                      if (factController != null) {
+                        controller.text = factController.text;
+                      }
+                    });
+                  },
+                ),
+              ),
               SizedBox(width: 32),
               SizedBox(
                 width: 400,
