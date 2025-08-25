@@ -256,15 +256,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Intervention Infos',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       SizedBox(height: 24),
-                      Text('N* :'),
+                      Text('N° :'),
                       TextField(
                         controller: widget.numController,
                         decoration: InputDecoration(
