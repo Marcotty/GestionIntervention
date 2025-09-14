@@ -39,7 +39,7 @@ class Intervention extends StatelessWidget {
   final Map<String, FieldCheckState> extension34CheckStates;
   final Map<String, FieldCheckState> incendieCheckStates;
 
-  const Intervention({
+  Intervention({
     super.key,
     required this.panneController,
     required this.travailController,
@@ -157,6 +157,13 @@ class Intervention extends StatelessWidget {
     {'label': 'Cons. Sous charge (mA)', 'hint': ''},
     {'label': 'Cons. alarme (mA)', 'hint': ''},
   ];
+
+  // Add this list at the top of your file (or near your fields definitions):
+  final Set<String> fieldsWithNAButton = {
+    'Disjoncteur séparé',
+    'Vérification et essai détecteurs incendie',
+    'Vérification et essai sirène et flash ext.',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -486,18 +493,16 @@ class Intervention extends StatelessWidget {
                                 Container(
                                   width: 200,
                                   alignment: Alignment.centerLeft,
-                                  child: Text(field['label']!,
-                                      style: TextStyle(fontSize: 14)),
+                                  child: Text(field['label']!, style: TextStyle(fontSize: 14)),
                                 ),
                                 SizedBox(width: 16),
                                 Expanded(
                                   child: TextField(
                                     enabled: intrusionCheckStates[field['label']]!.state != TripleCheckState.checked &&
-                                    intrusionCheckStates[field['label']]!.state != TripleCheckState.notVerified,
+                                             intrusionCheckStates[field['label']]!.state != TripleCheckState.notVerified,
                                     textAlign: TextAlign.left,
                                     textCapitalization: TextCapitalization.sentences,
-                                    controller:
-                                        entretienIntrusionControllers[field['label']!],
+                                    controller: entretienIntrusionControllers[field['label']!],
                                     decoration: InputDecoration(
                                       hintText: field['hint'],
                                       border: OutlineInputBorder(),
@@ -508,31 +513,35 @@ class Intervention extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 8),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
-                                        ? Colors.red[100]
-                                        : Colors.orange[100],
-                                    foregroundColor: Colors.black,
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    minimumSize: Size(0, 36),
+                                if (fieldsWithNAButton.contains(field['label']!)) ...[
+                                  SizedBox(width: 8),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
+                                          ? Colors.red[100]
+                                          : Colors.orange[100],
+                                      foregroundColor: Colors.black,
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      minimumSize: Size(0, 36),
+                                    ),
+                                    onPressed: intrusionCheckStates[field['label']]!.state == TripleCheckState.unchecked
+                                        ? () {
+                                            setState(() {
+                                              if (entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable') {
+                                                entretienIntrusionControllers[field['label']!]!.clear();
+                                              } else {
+                                                entretienIntrusionControllers[field['label']!]!.text = 'Non Applicable';
+                                              }
+                                            });
+                                          }
+                                        : null,
+                                    child: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
+                                        ? Icon(Icons.close, color: Colors.red, size: 18)
+                                        : Text('N/A', style: TextStyle(fontSize: 12)),
                                   ),
-                                  onPressed: intrusionCheckStates[field['label']]!.state == TripleCheckState.unchecked
-                                      ? () {
-                                          setState(() {
-                                            if (entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable') {
-                                              entretienIntrusionControllers[field['label']!]!.clear();
-                                            } else {
-                                              entretienIntrusionControllers[field['label']!]!.text = 'Non Applicable';
-                                            }
-                                          });
-                                        }
-                                      : null,
-                                  child: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
-                                      ? Icon(Icons.close, color: Colors.red, size: 18)
-                                      : Text('N/A', style: TextStyle(fontSize: 12)),
-                                ),
+                                ] else ...[
+                                  SizedBox(width: 56), // Same width as the button for alignment
+                                ],
                               ],
                             ),
                           ),
