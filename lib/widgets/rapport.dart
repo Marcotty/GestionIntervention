@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_intervention/pages/home.dart';
 import 'dart:ui' as ui;
 
 import 'package:gestion_intervention/widgets/intervention.dart';
@@ -39,6 +40,11 @@ class Rapport extends StatelessWidget {
   final TextEditingController incendieQuantiteController;
   final TextEditingController incendieTypeController;
   final TextEditingController incendieAdaptationController;
+  final Map<String, FieldCheckState> intrusionCheckStates;
+  final Map<String, FieldCheckState> centraleCheckStates;
+  final Map<String, FieldCheckState> extension12CheckStates;
+  final Map<String, FieldCheckState> extension34CheckStates;
+  final Map<String, FieldCheckState> incendieCheckStates;
 
   const Rapport({
     super.key,
@@ -77,9 +83,15 @@ class Rapport extends StatelessWidget {
     required this.incendieQuantiteController,
     required this.incendieTypeController,
     required this.incendieAdaptationController,
+    required this.intrusionCheckStates,
+    required this.centraleCheckStates,
+    required this.extension12CheckStates,
+    required this.extension34CheckStates,
+    required this.incendieCheckStates,
   });
 
-  Widget _buildReadOnlyField(String label, String value) {
+  Widget _buildReadOnlyField(String label, String value, {bool? checked}) {
+    if (checked == true) value = 'OK';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -213,8 +225,11 @@ class Rapport extends StatelessWidget {
                       ),
                       if (entretienType == 'Entretien Intrusion') ...[
                         ...entretienIntrusionControllers.entries.map(
-                          (entry) =>
-                              _buildReadOnlyField(entry.key, entry.value.text),
+                          (entry) => _buildReadOnlyField(
+                            entry.key,
+                            entry.value.text,
+                            checked: intrusionCheckStates[entry.key]?.checked,
+                          ),
                         ),
                         SizedBox(height: 18),
                         Text(
@@ -225,8 +240,11 @@ class Rapport extends StatelessWidget {
                           ),
                         ),
                         ...centraleControllers.entries.map(
-                          (entry) =>
-                              _buildReadOnlyField(entry.key, entry.value.text),
+                          (entry) => _buildReadOnlyField(
+                            entry.key,
+                            entry.value.text,
+                            checked: centraleCheckStates[entry.key]?.checked,
+                          ),
                         ),
                         SizedBox(height: 18),
                         Text(

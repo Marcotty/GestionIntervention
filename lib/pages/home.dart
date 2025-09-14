@@ -6,6 +6,11 @@ import 'package:gestion_intervention/widgets/rapport.dart';
 import 'package:gestion_intervention/widgets/signature.dart';
 import 'package:gestion_intervention/widgets/intervention.dart';
 
+class FieldCheckState {
+  bool checked;
+  FieldCheckState({this.checked = false});
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -199,6 +204,23 @@ class _MyHomePageState extends State<MyHomePage> {
     'Cons. Sous charge (mA)': TextEditingController(),
     'Cons. alarme (mA)': TextEditingController(),
   };
+
+  final Map<String, FieldCheckState> intrusionCheckStates = {
+    for (var field in Intervention.entretienIntrusionFields) field['label']!: FieldCheckState(),
+  };
+  final Map<String, FieldCheckState> centraleCheckStates = {
+    for (var field in Intervention.centraleFields) field['label']!: FieldCheckState(),
+  };
+  final Map<String, FieldCheckState> extension12CheckStates = {
+    for (var field in Intervention.extension12Fields) field['label']!: FieldCheckState(),
+  };
+  final Map<String, FieldCheckState> extension34CheckStates = {
+    for (var field in Intervention.extension34Fields) field['label']!: FieldCheckState(),
+  };
+  final Map<String, FieldCheckState> incendieCheckStates = {
+    for (var field in Intervention.entretienIncendieFields) field['label']!: FieldCheckState(),
+  };
+
   final TextEditingController incendieQuantiteController =
       TextEditingController();
   final TextEditingController incendieTypeController = TextEditingController();
@@ -344,6 +366,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 incendieQuantiteController: incendieQuantiteController,
                 incendieTypeController: incendieTypeController,
                 incendieAdaptationController: incendieAdaptationController,
+                intrusionCheckStates: intrusionCheckStates,
+                centraleCheckStates: centraleCheckStates,
+                extension12CheckStates: extension12CheckStates,
+                extension34CheckStates: extension34CheckStates,
+                incendieCheckStates: incendieCheckStates,
               ),
               SignatureWidget(onSignatureValidated: _onSignatureValidated),
               Rapport(
@@ -384,6 +411,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 incendieQuantiteController: incendieQuantiteController,
                 incendieTypeController: incendieTypeController,
                 incendieAdaptationController: incendieAdaptationController,
+                intrusionCheckStates: intrusionCheckStates,
+                centraleCheckStates: centraleCheckStates,
+                extension12CheckStates: extension12CheckStates,
+                extension34CheckStates: extension34CheckStates,
+                incendieCheckStates: incendieCheckStates,
               ),
               MaterielPage(
                 materielLines: materielLines,

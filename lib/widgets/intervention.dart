@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_intervention/pages/home.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
 
@@ -31,6 +32,11 @@ class Intervention extends StatelessWidget {
   final TextEditingController incendieQuantiteController;
   final TextEditingController incendieTypeController;
   final TextEditingController incendieAdaptationController;
+  final Map<String, FieldCheckState> intrusionCheckStates;
+  final Map<String, FieldCheckState> centraleCheckStates;
+  final Map<String, FieldCheckState> extension12CheckStates;
+  final Map<String, FieldCheckState> extension34CheckStates;
+  final Map<String, FieldCheckState> incendieCheckStates;
 
   const Intervention({
     super.key,
@@ -62,6 +68,11 @@ class Intervention extends StatelessWidget {
     required this.incendieQuantiteController,
     required this.incendieTypeController,
     required this.incendieAdaptationController,
+    required this.intrusionCheckStates,
+    required this.centraleCheckStates,
+    required this.extension12CheckStates,
+    required this.extension34CheckStates,
+    required this.incendieCheckStates,
   });
 
   static final List<Map<String, String>> entretienIntrusionFields = [
@@ -82,27 +93,27 @@ class Intervention extends StatelessWidget {
   ];
 
   static final List<Map<String, String>> centraleFields = [
-    {'label': 'Tension de chargement (VDC)', 'hint': ''},
-    {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
-    {'label': 'Tension zones (VDC)', 'hint': ''},
     {'label': 'Cons. de chargement (mA)', 'hint': ''},
     {'label': 'Cons. Sans alimentation (mA)', 'hint': ''},
+    {'label': 'Tension de chargement (VDC)', 'hint': ''},
+    {'label': 'Tension zones (VDC)', 'hint': ''},
+    {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
   ];
 
   static final List<Map<String, String>> extension12Fields = [
-    {'label': 'Tension de charge (VDC)', 'hint': ''},
-    {'label': 'Cons. Charge (mA)', 'hint': ''},
-    {'label': 'Tension batterie (VDC)', 'hint': ''},
+    {'label': 'Cons. de chargement (mA)', 'hint': ''},
+    {'label': 'Cons. Sans alimentation (mA)', 'hint': ''},
+    {'label': 'Tension de chargement (VDC)', 'hint': ''},
     {'label': 'Tension zones (VDC)', 'hint': ''},
-    {'label': 'Cons. Repos (mA)', 'hint': ''},
+    {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
   ];
 
   static final List<Map<String, String>> extension34Fields = [
-    {'label': 'Tension de charge (VDC)', 'hint': ''},
-    {'label': 'Tension batterie (VDC)', 'hint': ''},
+    {'label': 'Cons. de chargement (mA)', 'hint': ''},
+    {'label': 'Cons. Sans alimentation (mA)', 'hint': ''},
+    {'label': 'Tension de chargement (VDC)', 'hint': ''},
     {'label': 'Tension zones (VDC)', 'hint': ''},
-    {'label': 'Cons. Repos (mA)', 'hint': ''},
-    {'label': 'Nécessité d\'adaptation du système', 'hint': ''},
+    {'label': 'Tension batterie sous charge (VDC)', 'hint': ''},
   ];
 
   static final List<String> extension34RemplacementLabels = [
@@ -458,41 +469,48 @@ class Intervention extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   if (entretienType == 'Entretien Intrusion') ...[
-                    ...entretienIntrusionFields.map(
-                      (field) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 200,
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                field['label']!,
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ),
-                            SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                textAlign: TextAlign.left,
-                                textCapitalization: TextCapitalization.sentences,
-                                controller:
-                                    entretienIntrusionControllers[field['label']!],
-                                decoration: InputDecoration(
-                                  hintText: field['hint'],
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 8,
+                    ...entretienIntrusionFields.map((field) => StatefulBuilder(
+                          builder: (context, setState) => Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value:
+                                      intrusionCheckStates[field['label']]!.checked,
+                                  onChanged: (val) => setState(() {
+                                    intrusionCheckStates[field['label']]!.checked =
+                                        val ?? false;
+                                  }),
+                                ),
+                                Container(
+                                  width: 200,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(field['label']!,
+                                      style: TextStyle(fontSize: 14)),
+                                ),
+                                SizedBox(width: 16),
+                                Expanded(
+                                  child: TextField(
+                                    enabled: !intrusionCheckStates[field['label']]!.checked,
+                                    textAlign: TextAlign.left,
+                                    textCapitalization: TextCapitalization.sentences,
+                                    controller:
+                                        entretienIntrusionControllers[field['label']!],
+                                    decoration: InputDecoration(
+                                      hintText: field['hint'],
+                                      border: OutlineInputBorder(),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 8,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
+                        )),
                     SizedBox(height: 18),
                     Text(
                       'Centrale',
@@ -501,41 +519,47 @@ class Intervention extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    ...centraleFields.map(
-                      (field) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 200,
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                field['label']!,
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ),
-                            SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                textAlign: TextAlign.left,
-                                textCapitalization: TextCapitalization.sentences,
-                                controller:
-                                    centraleControllers[field['label']!],
-                                decoration: InputDecoration(
-                                  hintText: field['hint'],
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 8,
+                    ...centraleFields.map((field) => StatefulBuilder(
+                          builder: (context, setState) => Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value:
+                                      centraleCheckStates[field['label']]!.checked,
+                                  onChanged: (val) => setState(() {
+                                    centraleCheckStates[field['label']]!.checked =
+                                        val ?? false;
+                                  }),
+                                ),
+                                Container(
+                                  width: 200,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(field['label']!,
+                                      style: TextStyle(fontSize: 14)),
+                                ),
+                                SizedBox(width: 16),
+                                Expanded(
+                                  child: TextField(
+                                    textAlign: TextAlign.left,
+                                    textCapitalization: TextCapitalization.sentences,
+                                    controller:
+                                        centraleControllers[field['label']!],
+                                    decoration: InputDecoration(
+                                      hintText: field['hint'],
+                                      border: OutlineInputBorder(),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 8,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
+                        )),
                     SizedBox(height: 18),
                     Text(
                       'Extension 1-2',
