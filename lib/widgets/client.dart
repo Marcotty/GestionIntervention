@@ -259,7 +259,7 @@ class _InterventionInfosState extends State<InterventionInfos> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 24),
-                      Text('N° :'),
+                      Text('N° Client :'),
                       TextField(
                         textAlign: TextAlign.left,
                         textCapitalization: TextCapitalization.sentences,
@@ -275,10 +275,35 @@ class _InterventionInfosState extends State<InterventionInfos> {
                         textAlign: TextAlign.left,
                         textCapitalization: TextCapitalization.sentences,
                         controller: widget.dateController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 8, // 6 digits + 2 slashes
+                        inputFormatters: [
+                          // Optional: You can use FilteringTextInputFormatter.digitsOnly if you want to restrict input
+                        ],
                         decoration: InputDecoration(
-                          hintText: 'Entrez la date',
+                          hintText: 'JJ/MM/AA',
                           border: OutlineInputBorder(),
+                          counterText: '', // Hide character counter
                         ),
+                        onChanged: (value) {
+                          // Remove all non-digits
+                          String digits = value.replaceAll(RegExp(r'\D'), '');
+                          String formatted = '';
+                          for (int i = 0; i < digits.length && i < 6; i++) {
+                            formatted += digits[i];
+                            if ((i == 1 || i == 3) && i != digits.length - 1) {
+                              formatted += '/';
+                            }
+                          }
+                          if (formatted != value) {
+                            widget.dateController.value = TextEditingValue(
+                              text: formatted,
+                              selection: TextSelection.collapsed(
+                                offset: formatted.length,
+                              ),
+                            );
+                          }
+                        },
                       ),
                       SizedBox(height: 16),
                       Text('Heure :'),
@@ -286,10 +311,32 @@ class _InterventionInfosState extends State<InterventionInfos> {
                         textAlign: TextAlign.left,
                         textCapitalization: TextCapitalization.sentences,
                         controller: widget.heureController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 5, // 4 digits + 1 'h'
                         decoration: InputDecoration(
-                          hintText: 'Entrez l\'heure',
+                          hintText: 'HHhMM',
                           border: OutlineInputBorder(),
+                          counterText: '', // Hide character counter
                         ),
+                        onChanged: (value) {
+                          // Remove all non-digits
+                          String digits = value.replaceAll(RegExp(r'\D'), '');
+                          String formatted = '';
+                          for (int i = 0; i < digits.length && i < 4; i++) {
+                            formatted += digits[i];
+                            if (i == 1 && i != digits.length - 1) {
+                              formatted += 'h';
+                            }
+                          }
+                          if (formatted != value) {
+                            widget.heureController.value = TextEditingValue(
+                              text: formatted,
+                              selection: TextSelection.collapsed(
+                                offset: formatted.length,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

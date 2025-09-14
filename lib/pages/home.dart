@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:gestion_intervention/widgets/client.dart';
+import 'package:gestion_intervention/widgets/materiel.dart';
 import 'package:gestion_intervention/widgets/rapport.dart';
 import 'package:gestion_intervention/widgets/signature.dart';
 import 'package:gestion_intervention/widgets/intervention.dart';
@@ -204,13 +205,38 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController incendieAdaptationController =
       TextEditingController();
 
+  // For Matériel supplémentaire input fields
+  final TextEditingController refSuppController = TextEditingController();
+  final TextEditingController desSuppController = TextEditingController();
+  final TextEditingController qteSuppController = TextEditingController();
+  final TextEditingController tvaSuppController = TextEditingController();
+
+  // For Matériel supplémentaire list
+  List<Map<String, String>> additionalMaterielLines = [];
+
+  // Add this method to add a new line to Matériel supplémentaire
+  void _addSuppMaterielLine() {
+    setState(() {
+      additionalMaterielLines.add({
+        'Référence': refSuppController.text,
+        'Désignation': desSuppController.text,
+        'Qté': qteSuppController.text,
+        'TVA': tvaSuppController.text,
+      });
+      refSuppController.clear();
+      desSuppController.clear();
+      qteSuppController.clear();
+      tvaSuppController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () => FocusScope.of(context).unfocus(),
       child: DefaultTabController(
-        length: 4,
+        length: 5,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -222,6 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Tab(text: 'Intervention'),
                 Tab(text: 'Signature'),
                 Tab(text: 'Rapport'),
+                Tab(text: 'Matériel'),
               ],
               indicator: BoxDecoration(color: Colors.blue[100]),
               indicatorSize: TabBarIndicatorSize.tab,
@@ -357,6 +384,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 incendieQuantiteController: incendieQuantiteController,
                 incendieTypeController: incendieTypeController,
                 incendieAdaptationController: incendieAdaptationController,
+              ),
+              MaterielPage(
+                materielLines: materielLines,
+                additionalMaterielLines: additionalMaterielLines,
+                refSuppController: refSuppController,
+                desSuppController: desSuppController,
+                qteSuppController: qteSuppController,
+                tvaSuppController: tvaSuppController,
+                onAddSuppMaterielLine: _addSuppMaterielLine,
               ),
             ],
           ),
