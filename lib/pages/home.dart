@@ -5,7 +5,7 @@ import 'package:gestion_intervention/widgets/materiel.dart';
 import 'package:gestion_intervention/widgets/rapport.dart';
 import 'package:gestion_intervention/widgets/signature.dart';
 import 'package:gestion_intervention/widgets/intervention.dart';
-import 'package:gestion_intervention/widgets/checkBox_triple.dart'; // <-- Add this import
+import 'package:gestion_intervention/widgets/checkBox_triple.dart';
 
 class FieldCheckState {
   TripleCheckState state;
@@ -124,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
     'Cons. Sans alimentation (mA)': TextEditingController(),
   };
 
-  // Add controllers for Extension 1-2 and Extension 3-4 in _MyHomePageState:
   final Map<String, TextEditingController> extension12Controllers = {
     'Tension de charge (VDC)': TextEditingController(),
     'Cons. Charge (mA)': TextEditingController(),
@@ -140,7 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
     'Nécessité d\'adaptation du système': TextEditingController(),
   };
 
-  // Add in _MyHomePageState:
   final Map<String, TextEditingController> extension34TypeControllers = {
     for (var label in Intervention.extension34RemplacementLabels)
       label: TextEditingController(),
