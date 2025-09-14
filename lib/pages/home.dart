@@ -5,10 +5,11 @@ import 'package:gestion_intervention/widgets/materiel.dart';
 import 'package:gestion_intervention/widgets/rapport.dart';
 import 'package:gestion_intervention/widgets/signature.dart';
 import 'package:gestion_intervention/widgets/intervention.dart';
+import 'package:gestion_intervention/widgets/checkBox_triple.dart'; // <-- Add this import
 
 class FieldCheckState {
-  bool checked;
-  FieldCheckState({this.checked = false});
+  TripleCheckState state;
+  FieldCheckState({this.state = TripleCheckState.unchecked});
 }
 
 class MyHomePage extends StatefulWidget {

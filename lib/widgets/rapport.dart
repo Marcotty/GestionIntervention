@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_intervention/pages/home.dart';
+import 'package:gestion_intervention/widgets/checkBox_triple.dart';
 import 'dart:ui' as ui;
-
 import 'package:gestion_intervention/widgets/intervention.dart';
+import 'package:gestion_intervention/widgets/checkBox_triple.dart'; // <-- Add this import
 
 class Rapport extends StatelessWidget {
   final Map<String, TextEditingController> clientFacturationControllers;
@@ -90,8 +91,9 @@ class Rapport extends StatelessWidget {
     required this.incendieCheckStates,
   });
 
-  Widget _buildReadOnlyField(String label, String value, {bool? checked}) {
-    if (checked == true) value = 'OK';
+  Widget _buildReadOnlyField(String label, String value, {TripleCheckState? checkState}) {
+    if (checkState == TripleCheckState.checked) value = 'OK';
+    if (checkState == TripleCheckState.notVerified) value = 'Non vérifié';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -228,7 +230,7 @@ class Rapport extends StatelessWidget {
                           (entry) => _buildReadOnlyField(
                             entry.key,
                             entry.value.text,
-                            checked: intrusionCheckStates[entry.key]?.checked,
+                            checkState: intrusionCheckStates[entry.key]?.state,
                           ),
                         ),
                         SizedBox(height: 18),
@@ -243,7 +245,7 @@ class Rapport extends StatelessWidget {
                           (entry) => _buildReadOnlyField(
                             entry.key,
                             entry.value.text,
-                            checked: centraleCheckStates[entry.key]?.checked,
+                            checkState: centraleCheckStates[entry.key]?.state,
                           ),
                         ),
                         SizedBox(height: 18),

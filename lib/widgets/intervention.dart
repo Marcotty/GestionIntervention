@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gestion_intervention/pages/home.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
+import 'package:gestion_intervention/widgets/checkBox_triple.dart'; // <-- Add this import
 
 class Intervention extends StatelessWidget {
   final TextEditingController panneController;
@@ -475,12 +476,10 @@ class Intervention extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checkbox(
-                                  value:
-                                      intrusionCheckStates[field['label']]!.checked,
-                                  onChanged: (val) => setState(() {
-                                    intrusionCheckStates[field['label']]!.checked =
-                                        val ?? false;
+                                TripleCheckBox(
+                                  value: intrusionCheckStates[field['label']]!.state,
+                                  onChanged: (next) => setState(() {
+                                    intrusionCheckStates[field['label']]!.state = next;
                                   }),
                                 ),
                                 Container(
@@ -492,7 +491,8 @@ class Intervention extends StatelessWidget {
                                 SizedBox(width: 16),
                                 Expanded(
                                   child: TextField(
-                                    enabled: !intrusionCheckStates[field['label']]!.checked,
+                                    enabled: intrusionCheckStates[field['label']]!.state != TripleCheckState.checked &&
+                                    intrusionCheckStates[field['label']]!.state != TripleCheckState.notVerified,
                                     textAlign: TextAlign.left,
                                     textCapitalization: TextCapitalization.sentences,
                                     controller:
@@ -525,12 +525,10 @@ class Intervention extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checkbox(
-                                  value:
-                                      centraleCheckStates[field['label']]!.checked,
-                                  onChanged: (val) => setState(() {
-                                    centraleCheckStates[field['label']]!.checked =
-                                        val ?? false;
+                                TripleCheckBox(
+                                  value: centraleCheckStates[field['label']]!.state,
+                                  onChanged: (next) => setState(() {
+                                    centraleCheckStates[field['label']]!.state = next;
                                   }),
                                 ),
                                 Container(
@@ -542,6 +540,7 @@ class Intervention extends StatelessWidget {
                                 SizedBox(width: 16),
                                 Expanded(
                                   child: TextField(
+                                    enabled: centraleCheckStates[field['label']]!.state != TripleCheckState.checked,
                                     textAlign: TextAlign.left,
                                     textCapitalization: TextCapitalization.sentences,
                                     controller:
