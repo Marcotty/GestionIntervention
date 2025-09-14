@@ -480,6 +480,7 @@ class Intervention extends StatelessWidget {
                                   value: intrusionCheckStates[field['label']]!.state,
                                   onChanged: (next) => setState(() {
                                     intrusionCheckStates[field['label']]!.state = next;
+                                    entretienIntrusionControllers[field['label']!]!.clear();
                                   }),
                                 ),
                                 Container(
@@ -507,6 +508,31 @@ class Intervention extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                SizedBox(width: 8),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
+                                        ? Colors.red[100]
+                                        : Colors.orange[100],
+                                    foregroundColor: Colors.black,
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    minimumSize: Size(0, 36),
+                                  ),
+                                  onPressed: intrusionCheckStates[field['label']]!.state == TripleCheckState.unchecked
+                                      ? () {
+                                          setState(() {
+                                            if (entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable') {
+                                              entretienIntrusionControllers[field['label']!]!.clear();
+                                            } else {
+                                              entretienIntrusionControllers[field['label']!]!.text = 'Non Applicable';
+                                            }
+                                          });
+                                        }
+                                      : null,
+                                  child: entretienIntrusionControllers[field['label']!]!.text == 'Non Applicable'
+                                      ? Icon(Icons.close, color: Colors.red, size: 18)
+                                      : Text('N/A', style: TextStyle(fontSize: 12)),
+                                ),
                               ],
                             ),
                           ),
@@ -529,6 +555,7 @@ class Intervention extends StatelessWidget {
                                   value: centraleCheckStates[field['label']]!.state,
                                   onChanged: (next) => setState(() {
                                     centraleCheckStates[field['label']]!.state = next;
+                                    centraleControllers[field['label']!]!.clear();
                                   }),
                                 ),
                                 Container(
