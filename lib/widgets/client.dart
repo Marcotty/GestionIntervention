@@ -170,6 +170,8 @@ class ClientInfos extends StatelessWidget {
                   children: [
                     Text('${field['label']} :'),
                     TextField(
+                      textAlign: TextAlign.left,
+                      textCapitalization: TextCapitalization.sentences,
                       controller: controllers[field['label']!],
                       decoration: InputDecoration(hintText: field['hint']),
                       onChanged: (value) {
@@ -259,6 +261,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                       SizedBox(height: 24),
                       Text('N° :'),
                       TextField(
+                        textAlign: TextAlign.left,
+                        textCapitalization: TextCapitalization.sentences,
                         controller: widget.numController,
                         decoration: InputDecoration(
                           hintText: 'Entrez le numéro',
@@ -268,6 +272,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                       SizedBox(height: 16),
                       Text('Intervention date :'),
                       TextField(
+                        textAlign: TextAlign.left,
+                        textCapitalization: TextCapitalization.sentences,
                         controller: widget.dateController,
                         decoration: InputDecoration(
                           hintText: 'Entrez la date',
@@ -277,6 +283,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                       SizedBox(height: 16),
                       Text('Heure :'),
                       TextField(
+                        textAlign: TextAlign.left,
+                        textCapitalization: TextCapitalization.sentences,
                         controller: widget.heureController,
                         decoration: InputDecoration(
                           hintText: 'Entrez l\'heure',
@@ -451,6 +459,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                 ),
                 SizedBox(height: 16),
                 TextField(
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.sentences,
                   controller: widget.motifController,
                   maxLines: 4,
                   decoration: InputDecoration(
@@ -481,6 +491,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                 ),
                 SizedBox(height: 16),
                 TextField(
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.sentences,
                   controller: widget.noteController,
                   maxLines: 4,
                   decoration: InputDecoration(
@@ -511,6 +523,8 @@ class _InterventionInfosState extends State<InterventionInfos> {
                 ),
                 SizedBox(height: 16),
                 TextField(
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.sentences,
                   controller: widget.materielController,
                   maxLines: 4,
                   decoration: InputDecoration(

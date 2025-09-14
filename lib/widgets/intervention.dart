@@ -200,6 +200,8 @@ class Intervention extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextField(
+                          textAlign: TextAlign.left,
+                          textCapitalization: TextCapitalization.sentences,
                           controller: panneController,
                           maxLines: 5,
                           decoration: InputDecoration(
@@ -231,6 +233,8 @@ class Intervention extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextField(
+                          textAlign: TextAlign.left,
+                          textCapitalization: TextCapitalization.sentences,
                           controller: travailController,
                           maxLines: 5,
                           decoration: InputDecoration(
@@ -289,6 +293,8 @@ class Intervention extends StatelessWidget {
                             Text('Référence', style: TextStyle(fontSize: 14)),
                             SizedBox(height: 4),
                             TextField(
+                              textAlign: TextAlign.left,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: referenceController,
                               decoration: InputDecoration(
                                 hintText: 'Référence',
@@ -307,6 +313,8 @@ class Intervention extends StatelessWidget {
                             Text('Désignation', style: TextStyle(fontSize: 14)),
                             SizedBox(height: 4),
                             TextField(
+                              textAlign: TextAlign.left,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: designationController,
                               decoration: InputDecoration(
                                 hintText: 'Désignation',
@@ -325,6 +333,8 @@ class Intervention extends StatelessWidget {
                             Text('Qté', style: TextStyle(fontSize: 14)),
                             SizedBox(height: 4),
                             TextField(
+                              textAlign: TextAlign.left,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: qteController,
                               decoration: InputDecoration(
                                 hintText: 'Qté',
@@ -343,6 +353,8 @@ class Intervention extends StatelessWidget {
                             Text('TVA', style: TextStyle(fontSize: 14)),
                             SizedBox(height: 4),
                             TextField(
+                              textAlign: TextAlign.left,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: tvaController,
                               decoration: InputDecoration(
                                 hintText: 'TVA',
@@ -463,7 +475,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(width: 16),
                             Expanded(
                               child: TextField(
-                                textAlign: TextAlign.right,
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     entretienIntrusionControllers[field['label']!],
                                 decoration: InputDecoration(
@@ -505,7 +518,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(width: 16),
                             Expanded(
                               child: TextField(
-                                textAlign: TextAlign.right,
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     centraleControllers[field['label']!],
                                 decoration: InputDecoration(
@@ -575,6 +589,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(
                               width: 120,
                               child: TextField(
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     extension12Value1Controllers[field['label']!],
                                 decoration: InputDecoration(
@@ -590,6 +606,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(
                               width: 120,
                               child: TextField(
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     extension12Value2Controllers[field['label']!],
                                 decoration: InputDecoration(
@@ -664,6 +682,8 @@ class Intervention extends StatelessWidget {
                                 SizedBox(
                                   width: 120,
                                   child: TextField(
+                                    textAlign: TextAlign.left,
+                                    textCapitalization: TextCapitalization.sentences,
                                     controller:
                                         extension34Value1Controllers[field['label']!],
                                     decoration: InputDecoration(
@@ -679,6 +699,8 @@ class Intervention extends StatelessWidget {
                                 SizedBox(
                                   width: 120,
                                   child: TextField(
+                                    textAlign: TextAlign.left,
+                                    textCapitalization: TextCapitalization.sentences,
                                     controller:
                                         extension34Value2Controllers[field['label']!],
                                     decoration: InputDecoration(
@@ -711,6 +733,8 @@ class Intervention extends StatelessWidget {
                           SizedBox(
                             width: 120,
                             child: TextField(
+                              textAlign: TextAlign.left,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: extension34NecessiteController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -784,6 +808,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(
                               width: 120,
                               child: TextField(
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller: extension34TypeControllers[label],
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -798,6 +824,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(
                               width: 120,
                               child: TextField(
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     extension34QteInitialeControllers[label],
                                 decoration: InputDecoration(
@@ -813,6 +841,8 @@ class Intervention extends StatelessWidget {
                             SizedBox(
                               width: 120,
                               child: TextField(
+                                textAlign: TextAlign.left,
+                                textCapitalization: TextCapitalization.sentences,
                                 controller:
                                     extension34QteChangeeControllers[label],
                                 decoration: InputDecoration(
